@@ -20,7 +20,7 @@
 <link href="/css/mdb_style.min.css" rel="stylesheet">
 
 <meta name="description" content="@yield('description')">
-<meta name="author" content="">
+<meta name="author" content="Александр Гавриленко">
 
 <link rel="icon" href="../../favicon.ico">
 
