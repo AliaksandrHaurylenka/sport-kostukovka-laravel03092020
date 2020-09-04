@@ -8,13 +8,12 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBannersRequest;
 use App\Http\Requests\Admin\UpdateBannersRequest;
-// use App\Http\Controllers\Traits\FileUploadTrait;
+
 
 use App\Http\Controllers\Admin\Obj\CRUDFile;
 
 class BannersController extends Controller
 {
-    // use FileUploadTrait;
 
     private $crud;
 
