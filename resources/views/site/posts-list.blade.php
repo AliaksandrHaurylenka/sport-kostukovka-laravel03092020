@@ -1,0 +1,112 @@
+@extends('layouts.site')
+
+@if($section)
+  @section('title', $section->title.'.Новости.Спорт-Костюковка')
+@elseif($tag_title)
+  @section('title', $tag_title->title.'.Новости.Спорт-Костюковка')
+@elseif($year)
+  @section('title', 'Архив'.$year.'.Новости.Спорт-Костюковка')
+@elseif($user_name)
+  @section('title', $user_name->name.'.Новости.Спорт-Костюковка')
+@else
+  @section('title', 'Без категории.Новости.Спорт-Костюковка')
+@endif
+
+@section('description', 'г. Гомель, микрорайон Костюковка, Государственное учреждение "Физкультурно-оздоровительный центр "Костюковка-Спорт"')
+
+@section('content')
+  <!--Main listing-->
+
+  <!--Section: Blog v.3-->
+  <section class="section extra-margins pb-3 text-center text-lg-left">
+    <h1 class="h1-responsive text-center mt-5">
+      @if($section)
+        {{$section->title}}
+      @elseif($user_name)
+        {{$user_name->name}}
+      @elseif($tag_title)
+        {{$tag_title->title}}
+      @elseif($year)
+        {{$year}} г.
+      @else
+        Без категории
+      @endif
+    </h1>
+    <hr class="my-5">
+  @if(isset($posts))
+    @foreach($posts as $post)
+      <!--Grid row-->
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-lg-5 mb-4">
+            <!--Featured image-->
+            <div class="view overlay z-depth-1" style="height: auto;">
+              <img src="{{$post->getImage()}}" class="img-fluid" alt="">
+              <a href="{{route('post.show', $post->slug)}}">
+                <span class="mask rgba-white-slight"></span>
+              </a>
+            </div>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-6 ml-xl-4 mb-4">
+            <!--Grid row-->
+            <div class="row">
+
+              <!--Grid column-->
+              <div class="col-xl-6 col-md-6 text-sm-center text-md-right text-lg-left">
+                <p class="font-small font-weight-bold mb-1 spacing">
+                  <a href="{{route('user_posts.show', [$post->author->id, $post->author->name])}}"
+                     class="orange-lighter-hover">
+                    <strong>{{$post->author->name}}</strong>
+                  </a>
+                </p>
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-xl-5 col-md-6 text-sm-center text-md-left">
+                <p class="font-small grey-text">
+                  <em>{{$post->getDate()}}</em>
+                </p>
+              </div>
+              <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+            <h4 class="mb-3 dark-grey-text mt-0">
+              <strong>
+                <a href="{{route('post.show', $post->slug)}}" class="text-black-50">{{$post->title}}</a>
+              </strong>
+            </h4>
+            <div class="dark-grey-text">
+              {!! str_limit($post->content, $limit = 150, $end = '...') !!}
+            </div>
+
+            <!--Deep-orange-->
+            <a href="{{route('post.show', $post->slug)}}" class="btn btn-deep-orange btn-rounded btn-sm text-white">Далее</a>
+
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+        <hr class="mb-5">
+      @endforeach
+
+  </section>
+  <!--Section: Blog v.3-->
+
+  <!--Pagination dark grey-->
+  {{$posts->links()}}
+  <!--Pagination dark grey-->
+  @endif
+  
+  @include('site.blocks.horizontal-widget-1')
+  @include('site.blocks.block-rtb-1')
+
+  <!--Main listing-->
+
+@endsection
