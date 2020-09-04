@@ -12,61 +12,29 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreAdsRequest;
 use App\Http\Requests\Admin\UpdateAdsRequest;
-use App\Http\Controllers\Traits\FileUploadTrait;
+// use App\Http\Controllers\Traits\FileUploadTrait;
 
-
+use App\Http\Controllers\Admin\Obj\CRUDFile;
 class AdsController extends Controller
 {
-    use FileUploadTrait;
+    
+    private $crud;
 
-    /**
-     * Display a listing of Ad.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->crud = new CRUDFile('ad', Ad::class);
+    }
+
     public function index()
     {
-        if (! Gate::allows('ad_access')) {
-            return abort(401);
-        }
-
-
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('ad_delete')) {
-                return abort(401);
-            }
-            $ads = Ad::onlyTrashed()->get();
-        } else {
-            if(Auth::user()->role_id == 2){
-                $ads = Ad::where('user_id', Auth::user()->id)->get();
-            }
-            else {
-                $ads = Ad::all();
-            }
-        }
-
+        $ads = $this->crud->index();
         return view('admin.ads.index', compact('ads'));
     }
 
-    /**
-     * Show the form for creating new Ad.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create()
     {
-        if (! Gate::allows('ad_create')) {
-            return abort(401);
-        }
-
-        if (Auth::user()->role_id == 2){
-            FoldersSystem::add_folder_for_img(User::ADS_PATH.Auth::user()->name.'/Ad_N_', Ad::max('id')+1);
-        }
-        else{
-            FoldersSystem::add_folder_for_img(Ad::PATH . 'Ad_N_', Ad::max('id')+1);
-        }
-
-
+        $this->crud->create();
         return view('admin.ads.create');
     }
 
