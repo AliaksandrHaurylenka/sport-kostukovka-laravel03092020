@@ -1,54 +1,20 @@
-{{--<script src="/js/app.js"></script>--}}
-
+<script src="{{ mix('js/app.js', 'build') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-
-
-
-
-
-<!-- SCRIPTS -->
-
-<!-- JQuery -->
-
-
-
 <script src="/js/jquery.prettyPhoto.js"></script>
 
 <!-- Bootstrap tooltips -->
-
 <script src="/js/popper.min.js"></script>
-
-<!-- Bootstrap core JavaScript -->
-
-<script src="/js/bootstrap.min.js"></script>
-
-<!-- MDB core JavaScript -->
-
 <script src="/js/mdb_pro.min.js"></script>
-
 <script src="/js/jquery.flexslider.js"></script>
-
 <script src="/js/jquery.scrollUp.min.js"></script>
 
 <!-- Initializations -->
-
-
-
-
-
 <script src="/js/my_jquery.js"></script>
 
-
-
 <script>
-
-    // Animations initialization
-
-    new WOW().init();
-
+  // Animations initialization
+  new WOW().init();
 </script>
-
-
 
 <script>
   let cords = ['scrollX','scrollY'],

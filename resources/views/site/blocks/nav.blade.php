@@ -61,7 +61,7 @@
               <p><a class="dropdown-item" href="{{route('profile')}}">Мой профиль</a></p>
               <p><a class="dropdown-item" href="{{route('cabinet')}}">Личный кабинет</a></p>
             @else
-              <span><a class="dropdown-item" href="/admin" target="_blank">Вход</a></span>
+              <span><a class="dropdown-item" href="{{route('cabinet')}}" target="_blank">Вход</a></span>
             @endif
           </div>
         </li>

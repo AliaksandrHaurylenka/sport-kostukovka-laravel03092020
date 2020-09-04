@@ -8,10 +8,8 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 
-{{--<script src="https://use.fontawesome.com/51cfc37c3b.js"></script>--}}
-
 <!-- Bootstrap core CSS -->
-<link href="/css/app.css" rel="stylesheet">
+<link href="{{ mix('css/app.css', 'build') }}" rel="stylesheet">
 <link href="/css/prettyPhoto.css" rel="stylesheet">
 <link href="/css/mdb.min.css" rel="stylesheet">
 <link href="/css/flexslider.css" rel="stylesheet">
