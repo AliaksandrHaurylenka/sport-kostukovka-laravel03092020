@@ -26,7 +26,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($gomelglasses) > 0 ? 'datatable' : '' }} @can('gomelglass_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('gomelglass_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('gomelglass_delete')
@@ -46,8 +46,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($gomelglasses) > 0)
-                        @foreach ($gomelglasses as $gomelglass)
+                    @if (count($data) > 0)
+                        @foreach ($data as $gomelglass)
                             <tr data-entry-id="{{ $gomelglass->id }}">
                                 @can('gomelglass_delete')
                                     @if ( request('show_deleted') != 1 )<td></td>@endif

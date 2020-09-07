@@ -14,35 +14,35 @@ class GomelglassesController extends Controller
 {
     private $crud;
     private $column = 'photo';
-    private $indexView = 'admin.gomelglasses.index';
-    private $createView = 'admin.gomelglasses.create';
-    private $editView = 'admin.gomelglasses.edit';
+    private $path = 'admin.gomelglasses';
+    private $singleTableName = 'gomelglass';
+    private $model = Gomelglass::class;
 
 
     public function __construct()
     {
-        $this->crud = new CRUDFile('gomelglass', Gomelglass::class);
+        $this->crud = new CRUDFile($this->singleTableName, $this->model);
     }
     
 
     public function index()
     {
-        $gomelglasses = $this->crud->index();
-        return view($this->indexView, compact('gomelglasses'));
+        $data = $this->crud->index();
+        return view($this->path.'.index', compact('data'));
     }
 
     
     public function create()
     {
         $this->crud->create();
-        return view($this->createView);
+        return view($this->path.'.create');
     }
 
     
     public function store(StoreGomelglassesRequest $request)
     {
         $this->crud->store($request);
-        return redirect()->route($this->indexView);
+        return redirect()->route($this->path.'.index');
     }
 
 
@@ -50,14 +50,14 @@ class GomelglassesController extends Controller
     public function edit($id)
     { 
         $gomelglass = $this->crud->edit($id);
-        return view($this->editView, compact('gomelglass'));
+        return view($this->path.'.edit', compact($this->singleTableName));
     }
 
     
     public function update(UpdateGomelglassesRequest $request, $id)
     {
         $this->crud->update_file($request, $id, [$this->column]);
-        return redirect()->route($this->indexView);
+        return redirect()->route($this->path.'.index');
     }
 
 
@@ -65,7 +65,7 @@ class GomelglassesController extends Controller
     public function destroy($id)
     {
         $this->crud->destroy($id);
-        return redirect()->route($this->indexView);
+        return redirect()->route($this->path.'.index');
     }
 
     
@@ -79,13 +79,13 @@ class GomelglassesController extends Controller
     public function restore($id)
     {
         $this->crud->restore($id);
-        return redirect()->route($this->indexView);
+        return redirect()->route($this->path.'.index');
     }
 
     
     public function perma_del($id)
     {
         $this->crud->perma_del_file($id, [$this->column]);
-        return redirect()->route($this->indexView);
+        return redirect()->route($this->path.'.index');
     }
 }
