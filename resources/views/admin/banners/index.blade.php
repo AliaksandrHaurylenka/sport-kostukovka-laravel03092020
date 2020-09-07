@@ -26,7 +26,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($banners) > 0 ? 'datatable' : '' }} @can('banner_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('banner_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('banner_delete')
@@ -44,8 +44,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($banners) > 0)
-                        @foreach ($banners as $banner)
+                    @if (count($data) > 0)
+                        @foreach ($data as $banner)
                             <tr data-entry-id="{{ $banner->id }}">
                                 @can('banner_delete')
                                     @if ( request('show_deleted') != 1 )<td></td>@endif

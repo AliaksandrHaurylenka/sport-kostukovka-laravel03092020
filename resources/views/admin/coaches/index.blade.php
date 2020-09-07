@@ -26,7 +26,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($coaches) > 0 ? 'datatable' : '' }} @can('coach_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('coach_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('coach_delete')
@@ -48,8 +48,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($coaches) > 0)
-                        @foreach ($coaches as $coach)
+                    @if (count($data) > 0)
+                        @foreach ($data as $coach)
                             <tr data-entry-id="{{ $coach->id }}">
                                 @can('coach_delete')
                                     @if ( request('show_deleted') != 1 )<td></td>@endif

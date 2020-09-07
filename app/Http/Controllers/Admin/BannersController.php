@@ -16,57 +16,62 @@ class BannersController extends Controller
 {
 
     private $crud;
+    private $column = 'banner';
+    private $path = 'admin.banners';
+    private $singleTableName = 'banner';
+    private $model = Banner::class;
 
 
     public function __construct()
     {
-        $this->crud = new CRUDFile('banner', Banner::class);
+        $this->crud = new CRUDFile($this->singleTableName, $this->model);
     }
+    
 
     public function index()
     {
-        $banners = $this->crud->index();
-        return view('admin.banners.index', compact('banners'));
+        $data = $this->crud->index();
+        return view($this->path.'.index', compact('data'));
     }
 
     
     public function create()
     {
         $this->crud->create();
-        return view('admin.banners.create');
+        return view($this->path.'.create');
     }
 
     
     public function store(StoreBannersRequest $request)
     {
         $this->crud->store($request);
-        return redirect()->route('admin.banners.index');
+        return redirect()->route($this->path.'.index');
     }
 
 
     
     public function edit($id)
-    {
-        $banner = $this->crud->edit($id);
-        return view('admin.banners.edit', compact('banner'));
+    { 
+        $data = $this->crud->edit($id);
+        return view($this->path.'.edit', compact('data'));
     }
 
     
     public function update(UpdateBannersRequest $request, $id)
     {
-        $this->crud->update_file($request, $id, ['banner']);
-        return redirect()->route('admin.banners.index');
+        $this->crud->update_file($request, $id, [$this->column]);
+        return redirect()->route($this->path.'.index');
     }
 
 
-    
+   
     public function destroy($id)
     {
         $this->crud->destroy($id);
-        return redirect()->route('admin.banners.index');
+        return redirect()->route($this->path.'.index');
     }
 
-   
+    
     public function massDestroy(Request $request)
     {
         $this->crud->massDestroy($request);
@@ -77,13 +82,13 @@ class BannersController extends Controller
     public function restore($id)
     {
         $this->crud->restore($id);
-        return redirect()->route('admin.banners.index');
+        return redirect()->route($this->path.'.index');
     }
 
     
     public function perma_del($id)
     {
-        $this->crud->perma_del_file($id, ['banner']);
-        return redirect()->route('admin.banners.index');
+        $this->crud->perma_del_file($id, [$this->column]);
+        return redirect()->route($this->path.'.index');
     }
 }

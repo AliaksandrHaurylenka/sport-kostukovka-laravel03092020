@@ -3,7 +3,7 @@
 @section('content')
     <h3 class="page-title">@lang('quickadmin.coach.title')</h3>
     
-    {!! Form::model($coach, ['method' => 'PUT', 'route' => ['admin.coaches.update', $coach->id], 'files' => true,]) !!}
+    {!! Form::model($data, ['method' => 'PUT', 'route' => ['admin.coaches.update', $data->id], 'files' => true,]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -25,8 +25,8 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    @if ($coach->photo)
-                        <img class="photo" src="{{ asset(env('UPLOAD_PATH'). App\Coach::PATH .$coach->photo) }}">
+                    @if ($data->photo)
+                        <img class="photo" src="{{ asset(env('UPLOAD_PATH'). App\Coach::PATH .$data->photo) }}">
                     @endif
                     {!! Form::label('photo', trans('quickadmin.coach.fields.photo').'*', ['class' => 'control-label']) !!}
                     {!! Form::file('photo', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}
@@ -58,7 +58,7 @@
                     {!! Form::label('sport_section', trans('quickadmin.coach.fields.sport-section').'*', ['class' => 'control-label']) !!}
                     {{Form::select('section_id',
                             $sections,
-                            $coach->getSectionID(),
+                            $data->getSectionID(),
                             ['class' => 'form-control select2'])
                     }}
                     <p class="help-block"></p>

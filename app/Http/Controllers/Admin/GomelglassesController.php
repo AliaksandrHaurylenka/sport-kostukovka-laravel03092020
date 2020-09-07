@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Gomelglass;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreGomelglassesRequest;
 use App\Http\Requests\Admin\UpdateGomelglassesRequest;
@@ -49,8 +48,8 @@ class GomelglassesController extends Controller
     
     public function edit($id)
     { 
-        $gomelglass = $this->crud->edit($id);
-        return view($this->path.'.edit', compact($this->singleTableName));
+        $data = $this->crud->edit($id);
+        return view($this->path.'.edit', compact('data'));
     }
 
     

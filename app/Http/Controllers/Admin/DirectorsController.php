@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Director;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreDirectorsRequest;
 use App\Http\Requests\Admin\UpdateDirectorsRequest;
@@ -14,55 +13,59 @@ class DirectorsController extends Controller
 {
     
     private $crud;
+    private $column = 'photo';
+    private $path = 'admin.directors';
+    private $singleTableName = 'director';
+    private $model = Director::class;
 
 
     public function __construct()
     {
-        $this->crud = new CRUDFile('director', Director::class);
+        $this->crud = new CRUDFile($this->singleTableName, $this->model);
     }
-
+    
 
     public function index()
     {
-        $directors = $this->crud->index();
-        return view('admin.directors.index', compact('directors'));
+        $data = $this->crud->index();
+        return view($this->path.'.index', compact('data'));
     }
 
     
     public function create()
     {
         $this->crud->create();
-        return view('admin.directors.create');
+        return view($this->path.'.create');
     }
 
     
     public function store(StoreDirectorsRequest $request)
     {
         $this->crud->store($request);
-        return redirect()->route('admin.directors.index');
+        return redirect()->route($this->path.'.index');
     }
 
 
     
     public function edit($id)
-    {
-        $director = $this->crud->edit($id);
-        return view('admin.directors.edit', compact('director'));
+    { 
+        $data = $this->crud->edit($id);
+        return view($this->path.'.edit', compact('data'));
     }
 
     
     public function update(UpdateDirectorsRequest $request, $id)
     {
-        $this->crud->update_file($request, $id, ['photo']);
-        return redirect()->route('admin.directors.index');
+        $this->crud->update_file($request, $id, [$this->column]);
+        return redirect()->route($this->path.'.index');
     }
 
 
-    
+   
     public function destroy($id)
     {
         $this->crud->destroy($id);
-        return redirect()->route('admin.directors.index');
+        return redirect()->route($this->path.'.index');
     }
 
     
@@ -76,13 +79,13 @@ class DirectorsController extends Controller
     public function restore($id)
     {
         $this->crud->restore($id);
-        return redirect()->route('admin.directors.index');
+        return redirect()->route($this->path.'.index');
     }
 
     
     public function perma_del($id)
     {
-        $this->crud->perma_del_file($id, ['photo']);
-        return redirect()->route('admin.directors.index');
+        $this->crud->perma_del_file($id, [$this->column]);
+        return redirect()->route($this->path.'.index');
     }
 }

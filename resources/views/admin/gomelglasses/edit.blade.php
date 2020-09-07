@@ -3,7 +3,7 @@
 @section('content')
     <h3 class="page-title">@lang('quickadmin.gomelglass.title')</h3>
     
-    {!! Form::model($gomelglass, ['method' => 'PUT', 'route' => ['admin.gomelglasses.update', $gomelglass->id], 'files' => true,]) !!}
+    {!! Form::model($data, ['method' => 'PUT', 'route' => ['admin.gomelglasses.update', $data->id], 'files' => true,]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -13,8 +13,8 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    @if ($gomelglass->photo)
-                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Gomelglass::PATH.$gomelglass->photo) }}">
+                    @if ($data->photo)
+                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Gomelglass::PATH.$data->photo) }}">
                     @endif
                     {!! Form::label('photo', trans('quickadmin.gomelglass.fields.photo').'*', ['class' => 'control-label']) !!}
                     {!! Form::file('photo', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}

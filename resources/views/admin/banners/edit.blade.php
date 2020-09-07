@@ -3,7 +3,7 @@
 @section('content')
     <h3 class="page-title">@lang('quickadmin.banner.title')</h3>
     
-    {!! Form::model($banner, ['method' => 'PUT', 'route' => ['admin.banners.update', $banner->id], 'files' => true,]) !!}
+    {!! Form::model($data, ['method' => 'PUT', 'route' => ['admin.banners.update', $data->id], 'files' => true,]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -13,8 +13,8 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    @if ($banner->banner)
-                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Banner::PATH.$banner->banner) }}">
+                    @if ($data->banner)
+                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Banner::PATH.$data->banner) }}">
                     @endif
                     {!! Form::label('banner', trans('quickadmin.banner.fields.banner').'*', ['class' => 'control-label']) !!}
                     {!! Form::file('banner', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}

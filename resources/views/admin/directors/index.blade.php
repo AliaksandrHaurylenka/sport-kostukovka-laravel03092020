@@ -26,7 +26,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($directors) > 0 ? 'datatable' : '' }} @can('director_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('director_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('director_delete')
@@ -46,8 +46,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($directors) > 0)
-                        @foreach ($directors as $director)
+                    @if (count($data) > 0)
+                        @foreach ($data as $director)
                             <tr data-entry-id="{{ $director->id }}">
                                 @can('director_delete')
                                     @if ( request('show_deleted') != 1 )<td></td>@endif
