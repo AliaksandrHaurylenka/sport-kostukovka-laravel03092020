@@ -8,181 +8,85 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePridesRequest;
 use App\Http\Requests\Admin\UpdatePridesRequest;
-// use App\Http\Controllers\Traits\FileUploadTrait;
-// use App\Http\Controllers\Traits\FileDelTrait;
 
+use App\Http\Controllers\Admin\Obj\CRUDFile;
 class PridesController extends Controller
 {
-    // use FileUploadTrait;
-    // use FileDelTrait;
+    private $crud;
+    private $column = 'photo';
+    private $path = 'admin.prides';
+    private $singleTableName = 'pride';
+    private $model = Pride::class;
 
-    /**
-     * Display a listing of Pride.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        $this->crud = new CRUDFile($this->singleTableName, $this->model);
+    }
+    
+
     public function index()
     {
-        if (! Gate::allows('pride_access')) {
-            return abort(401);
-        }
-
-
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('pride_delete')) {
-                return abort(401);
-            }
-            $prides = Pride::onlyTrashed()->get();
-        } else {
-            $prides = Pride::all();
-        }
-
-        return view('admin.prides.index', compact('prides'));
+        $data = $this->crud->index();
+        return view($this->path.'.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating new Pride.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        if (! Gate::allows('pride_create')) {
-            return abort(401);
-        }
         $sections = Section::pluck('title', 'id');
-        return view('admin.prides.create', compact('sections'));
+        return view($this->path.'.create', compact('sections'));
     }
 
-    /**
-     * Store a newly created Pride in storage.
-     *
-     * @param StorePridesRequest $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(StorePridesRequest $request)
     {
-        if (! Gate::allows('pride_create')) {
-            return abort(401);
-        }
-        $request = $this->saveFiles($request, Pride::PATH);
-        $pride = Pride::create($request->all());
-
-
-
-        return redirect()->route('admin.prides.index');
+        $this->crud->store($request);
+        return redirect()->route($this->path.'.index');
     }
 
 
-    /**
-     * Show the form for editing Pride.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
-    {
-        if (! Gate::allows('pride_edit')) {
-            return abort(401);
-        }
-        $pride = Pride::findOrFail($id);
+    { 
+        $data = $this->crud->edit($id);
         $sections = Section::pluck('title', 'id');
-
-        return view('admin.prides.edit', compact('pride', 'sections'));
+        return view($this->path.'.edit', compact('data', 'sections'));
     }
 
-    /**
-     * Update Pride in storage.
-     *
-     * @param UpdatePridesRequest $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(UpdatePridesRequest $request, $id)
     {
-        if (! Gate::allows('pride_edit')) {
-            return abort(401);
-        }
-        $request = $this->saveFiles($request, Pride::PATH);
-        $pride = Pride::findOrFail($id);
-        if($_FILES['photo']['name']){
-            $pride->removeImg();
-        }
-        $pride->update($request->all());
-
-
-
-        return redirect()->route('admin.prides.index');
+        $this->crud->update_file($request, $id, [$this->column]);
+        return redirect()->route($this->path.'.index');
     }
 
 
-    /**
-     * Remove Pride from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
-        if (! Gate::allows('pride_delete')) {
-            return abort(401);
-        }
-        $pride = Pride::findOrFail($id);
-        $pride->delete();
-
-        return redirect()->route('admin.prides.index');
+        $this->crud->destroy($id);
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Delete all selected Pride at once.
-     *
-     * @param Request $request
-     */
+    
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('pride_delete')) {
-            return abort(401);
-        }
-        if ($request->input('ids')) {
-            $entries = Pride::whereIn('id', $request->input('ids'))->get();
-
-            foreach ($entries as $entry) {
-                $entry->delete();
-            }
-        }
+        $this->crud->massDestroy($request);
     }
 
 
-    /**
-     * Restore Pride from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function restore($id)
     {
-        if (! Gate::allows('pride_delete')) {
-            return abort(401);
-        }
-        $pride = Pride::onlyTrashed()->findOrFail($id);
-        $pride->restore();
-
-        return redirect()->route('admin.prides.index');
+        $this->crud->restore($id);
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Permanently delete Pride from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function perma_del($id)
     {
-        if (! Gate::allows('pride_delete')) {
-            return abort(401);
-        }
-        Pride::onlyTrashed()->findOrFail($id)->remove();
-
-        return redirect()->route('admin.prides.index');
+        $this->crud->perma_del_file($id, [$this->column]);
+        return redirect()->route($this->path.'.index');
     }
 }

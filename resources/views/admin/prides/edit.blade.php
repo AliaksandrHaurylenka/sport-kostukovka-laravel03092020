@@ -3,7 +3,7 @@
 @section('content')
     <h3 class="page-title">@lang('quickadmin.pride.title')</h3>
     
-    {!! Form::model($pride, ['method' => 'PUT', 'route' => ['admin.prides.update', $pride->id], 'files' => true,]) !!}
+    {!! Form::model($data, ['method' => 'PUT', 'route' => ['admin.prides.update', $data->id], 'files' => true,]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -25,8 +25,8 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    @if ($pride->photo)
-                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Pride::PATH.$pride->photo) }}">
+                    @if ($data->photo)
+                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Pride::PATH.$data->photo) }}">
                     @endif
                     {!! Form::label('photo', trans('quickadmin.pride.fields.photo').'*', ['class' => 'control-label']) !!}
                     {!! Form::file('photo', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}
@@ -58,7 +58,7 @@
                     {!! Form::label('section_id', trans('quickadmin.pride.fields.sport-section').'*', ['class' => 'control-label']) !!}
                     {{Form::select('section_id',
                             $sections,
-                            $pride->getSectionID(),
+                            $data->getSectionID(),
                             ['class' => 'form-control select2'])
                     }}
                     <p class="help-block"></p>
