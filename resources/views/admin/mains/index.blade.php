@@ -26,7 +26,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($mains) > 0 ? 'datatable' : '' }} @can('main_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('main_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('main_delete')
@@ -46,8 +46,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($mains) > 0)
-                        @foreach ($mains as $main)
+                    @if (count($data) > 0)
+                        @foreach ($data as $main)
                             <tr data-entry-id="{{ $main->id }}">
                                 @can('main_delete')
                                     @if ( request('show_deleted') != 1 )<td></td>@endif

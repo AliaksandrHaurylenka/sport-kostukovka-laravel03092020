@@ -3,7 +3,7 @@
 @section('content')
     <h3 class="page-title">@lang('quickadmin.main.title')</h3>
     
-    {!! Form::model($main, ['method' => 'PUT', 'route' => ['admin.mains.update', $main->id], 'files' => true,]) !!}
+    {!! Form::model($data, ['method' => 'PUT', 'route' => ['admin.mains.update', $data->id], 'files' => true,]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -13,8 +13,8 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    @if ($main->photo)
-                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Main::PATH.$main->photo) }}">
+                    @if ($data->photo)
+                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Main::PATH.$data->photo) }}">
                     @endif
                     {!! Form::label('photo', trans('quickadmin.main.fields.photo').'*', ['class' => 'control-label']) !!}
                     {!! Form::file('photo', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}
