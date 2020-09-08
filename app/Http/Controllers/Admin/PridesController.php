@@ -5,17 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Pride;
 use App\Section;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePridesRequest;
 use App\Http\Requests\Admin\UpdatePridesRequest;
-use App\Http\Controllers\Traits\FileUploadTrait;
-use App\Http\Controllers\Traits\FileDelTrait;
+// use App\Http\Controllers\Traits\FileUploadTrait;
+// use App\Http\Controllers\Traits\FileDelTrait;
 
 class PridesController extends Controller
 {
-    use FileUploadTrait;
-    use FileDelTrait;
+    // use FileUploadTrait;
+    // use FileDelTrait;
 
     /**
      * Display a listing of Pride.
