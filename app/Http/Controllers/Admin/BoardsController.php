@@ -4,182 +4,89 @@ namespace App\Http\Controllers\Admin;
 
 use App\Board;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBoardsRequest;
 use App\Http\Requests\Admin\UpdateBoardsRequest;
-use App\Http\Controllers\Traits\FileUploadTrait;
 
+use App\Http\Controllers\Admin\Obj\CRUDFile;
 class BoardsController extends Controller
 {
-    use FileUploadTrait;
+    private $crud;
+    private $column = 'photo';
+    private $path = 'admin.boards';
+    private $singleTableName = 'board';
+    private $model = Board::class;
 
-    /**
-     * Display a listing of Board.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        $this->crud = new CRUDFile($this->singleTableName, $this->model);
+    }
+    
+
     public function index()
     {
-        if (! Gate::allows('board_access')) {
-            return abort(401);
-        }
-
-
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('board_delete')) {
-                return abort(401);
-            }
-            $boards = Board::onlyTrashed()->get();
-        } else {
-            $boards = Board::all();
-        }
-
-        return view('admin.boards.index', compact('boards'));
+        $data = $this->crud->index();
+        return view($this->path.'.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating new Board.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        if (! Gate::allows('board_create')) {
-            return abort(401);
-        }
-        return view('admin.boards.create');
+        $this->crud->create();
+        return view($this->path.'.create');
     }
 
-    /**
-     * Store a newly created Board in storage.
-     *
-     * @param  \App\Http\Requests\StoreBoardsRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(StoreBoardsRequest $request)
     {
-        if (! Gate::allows('board_create')) {
-            return abort(401);
-        }
-        $request = $this->saveFiles($request, Board::PATH);
-        $board = Board::create($request->all());
-
-
-
-        return redirect()->route('admin.boards.index');
+        $this->crud->store($request);
+        return redirect()->route($this->path.'.index');
     }
 
 
-    /**
-     * Show the form for editing Board.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
-    {
-        if (! Gate::allows('board_edit')) {
-            return abort(401);
-        }
-        $board = Board::findOrFail($id);
-
-        return view('admin.boards.edit', compact('board'));
+    { 
+        $data = $this->crud->edit($id);
+        return view($this->path.'.edit', compact('data'));
     }
 
-    /**
-     * Update Board in storage.
-     *
-     * @param  \App\Http\Requests\UpdateBoardsRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(UpdateBoardsRequest $request, $id)
     {
-        if (! Gate::allows('board_edit')) {
-            return abort(401);
-        }
-        $request = $this->saveFiles($request, Board::PATH);
-        $board = Board::findOrFail($id);
-        if($_FILES['photo']['name']){
-            $board->removeImg();
-        }
-        $board->update($request->all());
-
-
-
-        return redirect()->route('admin.boards.index');
+        $this->crud->update_file($request, $id, [$this->column]);
+        return redirect()->route($this->path.'.index');
     }
 
 
-    /**
-     * Remove Board from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
-        if (! Gate::allows('board_delete')) {
-            return abort(401);
-        }
-        $board = Board::findOrFail($id);
-        $board->delete();
-
-        return redirect()->route('admin.boards.index');
+        $this->crud->destroy($id);
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Delete all selected Board at once.
-     *
-     * @param Request $request
-     */
+    
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('board_delete')) {
-            return abort(401);
-        }
-        if ($request->input('ids')) {
-            $entries = Board::whereIn('id', $request->input('ids'))->get();
-
-            foreach ($entries as $entry) {
-                $entry->delete();
-            }
-        }
+        $this->crud->massDestroy($request);
     }
 
 
-    /**
-     * Restore Board from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function restore($id)
     {
-        if (! Gate::allows('board_delete')) {
-            return abort(401);
-        }
-        $board = Board::onlyTrashed()->findOrFail($id);
-        $board->restore();
-
-        return redirect()->route('admin.boards.index');
+        $this->crud->restore($id);
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Permanently delete Board from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function perma_del($id)
     {
-        if (! Gate::allows('board_delete')) {
-            return abort(401);
-        }
-        Board::onlyTrashed()->findOrFail($id)->remove();
-
-
-        return redirect()->route('admin.boards.index');
+        $this->crud->perma_del_file($id, [$this->column]);
+        return redirect()->route($this->path.'.index');
     }
+        
+
 }
