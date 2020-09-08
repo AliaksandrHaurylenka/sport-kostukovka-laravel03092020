@@ -26,7 +26,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($histories) > 0 ? 'datatable' : '' }} @can('history_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('history_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('history_delete')
@@ -45,8 +45,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($histories) > 0)
-                        @foreach ($histories as $history)
+                    @if (count($data) > 0)
+                        @foreach ($data as $history)
                             <tr data-entry-id="{{ $history->id }}">
                                 @can('history_delete')
                                     @if ( request('show_deleted') != 1 )<td></td>@endif

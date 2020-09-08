@@ -16,7 +16,7 @@ trait FileUploadPostTrait
      * @param $h - высота фото
      * @return Request
      */
-    public function saveFiles(Request $request, $path, $w, $h)
+    public function saveFilesWidthHeight(Request $request, $path, $w, $h)
     {
 
 		$uploadPath = public_path(env('UPLOAD_PATH').$path);

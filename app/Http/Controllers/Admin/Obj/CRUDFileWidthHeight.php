@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Admin\Obj;
 
 
-use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Controllers\Traits\FileUploadPostTrait;
 use Illuminate\Support\Facades\Storage;
 
 
-class CRUDFile extends CRUD
+class CRUDFileWidthHeight extends CRUDFile
 {
-    use FileUploadTrait, FileUploadPostTrait;
+    use FileUploadPostTrait;
 
     private $nameTable;
     private $model;
@@ -39,7 +38,7 @@ class CRUDFile extends CRUD
     public function storeWidthHeight($request, $width, $height)
     {
         $this->gate(self::CREATE);
-        $request = $this->saveFilesWidthHeight($request, $this->model::PATH, $width, $height);
+        $request = $this->saveFiles($request, $this->model::PATH, $width, $height);
         $this->model::create($request->all());
     }
 
@@ -58,27 +57,6 @@ class CRUDFile extends CRUD
         foreach ($columns as $column) {
             if ($_FILES[$column]['name']) {
                 $request = $this->saveFiles($request, $this->model::PATH);
-                $this->removeFile($id, $column, $data);
-            }
-        }
-        $data->update($request->all());
-    }
-
-
-    public function update_file_width_height($request, $id, array $columns, $width, $height)
-    {
-        $this->gate(self::EDIT);
-        $this->check_file_width_height($request, $id, $columns, $width, $height);
-    }
-
-
-    private function check_file_width_height($request, $id, array $columns, $width, $height)
-    {
-        $data = $this->model::findOrFail($id);
-
-        foreach ($columns as $column) {
-            if ($_FILES[$column]['name']) {
-                $request = $this->saveFilesWidthHeight($request, $this->model::PATH, $width, $height);
                 $this->removeFile($id, $column, $data);
             }
         }

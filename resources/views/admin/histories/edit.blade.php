@@ -3,7 +3,7 @@
 @section('content')
     <h3 class="page-title">@lang('quickadmin.history.title')</h3>
     
-    {!! Form::model($history, ['method' => 'PUT', 'route' => ['admin.histories.update', $history->id], 'files' => true,]) !!}
+    {!! Form::model($data, ['method' => 'PUT', 'route' => ['admin.histories.update', $data->id], 'files' => true,]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -25,8 +25,8 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    @if ($history->photo)
-                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\History::PATH.$history->photo) }}">
+                    @if ($data->photo)
+                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\History::PATH.$data->photo) }}">
                     @endif
                     {!! Form::label('photo', trans('quickadmin.history.fields.photo').'*', ['class' => 'control-label']) !!}
                     {!! Form::file('photo', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}
