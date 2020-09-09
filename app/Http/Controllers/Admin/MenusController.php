@@ -96,6 +96,7 @@ class MenusController extends Controller
             return abort(401);
         }
         $menu = Menu::findOrFail($id);
+        $menu->slug = null;//для обновления поля slug
         $menu->update($request->all());
 
 
