@@ -47,14 +47,7 @@ class CRUDFile extends CRUD
     public function update_file($request, $id, array $columns)
     {
         $this->gate(self::EDIT);
-        $this->check_file($request, $id, $columns);
-    }
-
-
-    private function check_file($request, $id, array $columns)
-    {
         $data = $this->model::findOrFail($id);
-
         foreach ($columns as $column) {
             if ($_FILES[$column]['name']) {
                 $request = $this->saveFiles($request, $this->model::PATH);
@@ -65,17 +58,19 @@ class CRUDFile extends CRUD
     }
 
 
-    public function update_file_width_height($request, $id, array $columns, $width, $height)
+    public function update_file_width_height($request, $id, array $columns, $columnSlug, $width, $height)
     {
         $this->gate(self::EDIT);
-        $this->check_file_width_height($request, $id, $columns, $width, $height);
+        $this->upload_remove_file($request, $id, $columns, $columnSlug, $width, $height);
     }
 
 
-    private function check_file_width_height($request, $id, array $columns, $width, $height)
+    private function upload_remove_file($request, $id, array $columns, $columnSlug, $width, $height)
     {
         $data = $this->model::findOrFail($id);
-
+        if($data->$columnSlug){
+            $data->$columnSlug = null;
+        }
         foreach ($columns as $column) {
             if ($_FILES[$column]['name']) {
                 $request = $this->saveFilesWidthHeight($request, $this->model::PATH, $width, $height);
@@ -84,6 +79,9 @@ class CRUDFile extends CRUD
         }
         $data->update($request->all());
     }
+
+
+
 
     /**
      * Удаление фото при удалении записи в базе

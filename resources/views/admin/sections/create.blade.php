@@ -61,7 +61,7 @@
                     {!! Form::hidden('photo_sport_max_width', 4096) !!}
                     {!! Form::hidden('photo_sport_max_height', 4096) !!}
                     <p class="help-block"></p>
-                    @if($errors->has('photo'))
+                    @if($errors->has('photo_spor'))
                         <p class="help-block">
                             {{ $errors->first('photo_sport') }}
                         </p>

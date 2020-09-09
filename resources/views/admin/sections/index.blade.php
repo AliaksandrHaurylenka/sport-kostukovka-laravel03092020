@@ -26,7 +26,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($sections) > 0 ? 'datatable' : '' }} @can('section_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('section_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('section_delete')
@@ -48,8 +48,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($sections) > 0)
-                        @foreach ($sections as $section)
+                    @if (count($data) > 0)
+                        @foreach ($data as $section)
                             <tr data-entry-id="{{ $section->id }}">
                                 @can('section_delete')
                                     @if ( request('show_deleted') != 1 )<td></td>@endif

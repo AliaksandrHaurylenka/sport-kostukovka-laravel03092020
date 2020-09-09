@@ -8,12 +8,11 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreHistoriesRequest;
 use App\Http\Requests\Admin\UpdateHistoriesRequest;
-// use App\Http\Controllers\Traits\FileUploadPostTrait;
 use App\Http\Controllers\Admin\Obj\CRUDFile;
 
 class HistoriesController extends Controller
 {
-    // use FileUploadPostTrait;
+    
     private $crud;
     private $column = 'photo';
     private $path = 'admin.histories';
@@ -58,7 +57,7 @@ class HistoriesController extends Controller
     
     public function update(UpdateHistoriesRequest $request, $id)
     {
-        $this->crud->update_file_width_height($request, $id, [$this->column], 800, 450);
+        $this->crud->update_file_width_height($request, $id, [$this->column], $columnSlug = null, 800, 450);
         return redirect()->route($this->path.'.index');
     }
 

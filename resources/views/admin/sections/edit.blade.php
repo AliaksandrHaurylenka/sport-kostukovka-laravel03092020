@@ -3,7 +3,7 @@
 @section('content')
     <h3 class="page-title">@lang('quickadmin.section.title')</h3>
     
-    {!! Form::model($section, ['method' => 'PUT', 'route' => ['admin.sections.update', $section->id], 'files' => true,]) !!}
+    {!! Form::model($data, ['method' => 'PUT', 'route' => ['admin.sections.update', $data->id], 'files' => true,]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -23,12 +23,32 @@
                     @endif
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-xs-3 form-group">
-                    @if ($section->photo)
-                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').'/images/sections/'.$section->photo) }}">
+                    @if ($data->photo_section_menu)
+                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Section::PATH.$data->photo_section_menu) }}">
                     @else
-                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').'/images/sections/'.'img-default.jpg') }}"/>
+                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Section::PATH.'img-default.jpg') }}"/>
+                    @endif
+                    {!! Form::label('photo', trans('quickadmin.section.fields.photo_section_menu'), ['class' => 'control-label']) !!}
+                    {!! Form::file('photo_section_menu', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}
+                    {!! Form::hidden('photo_max_size', 2) !!}
+                    {!! Form::hidden('photo_max_width', 4096) !!}
+                    {!! Form::hidden('photo_max_height', 4096) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('photo_section_menu'))
+                        <p class="help-block">
+                            {{ $errors->first('photo_section_menu') }}
+                        </p>
+                    @endif
+                </div>
+
+                <div class="col-xs-3 form-group">
+                    @if ($data->photo)
+                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Section::PATH.$data->photo) }}">
+                    @else
+                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Section::PATH.'img-default.jpg') }}"/>
                     @endif
                     {!! Form::label('photo', trans('quickadmin.section.fields.photo'), ['class' => 'control-label']) !!}
                     {!! Form::file('photo', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}
@@ -42,14 +62,12 @@
                         </p>
                     @endif
                 </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                	@if ($section->photo_sport)
-                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').'/images/sections/'.$section->photo_sport) }}">
+
+                <div class="col-xs-3 form-group">
+                	@if ($data->photo_sport)
+                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Section::PATH.$data->photo_sport) }}">
                     @else
-                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').'/images/sections/'.'img-default.jpg') }}"/>
+                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Section::PATH.'img-default.jpg') }}"/>
                     @endif
                     {!! Form::label('photo_sport', trans('quickadmin.section.fields.photo_sport'), ['class' => 'control-label']) !!}
                     {!! Form::file('photo_sport', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}
@@ -64,6 +82,7 @@
                     @endif
                 </div>
             </div>
+
             
             <div class="row">
                 <div class="col-xs-12 form-group">
