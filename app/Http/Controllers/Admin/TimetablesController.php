@@ -4,184 +4,86 @@ namespace App\Http\Controllers\Admin;
 
 use App\Timetable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreTimetablesRequest;
 use App\Http\Requests\Admin\UpdateTimetablesRequest;
-use App\Http\Controllers\Traits\FileUploadTrait;
-use App\Http\Controllers\Traits\FileUploadPostTrait;
+use App\Http\Controllers\Admin\Obj\CRUDFile;
 
 class TimetablesController extends Controller
 {
-   // use FileUploadTrait;
-    use FileUploadPostTrait;
+    private $crud;
+    private $column = 'photo';
+    private $path = 'admin.timetables';
+    private $singleTableName = 'timetable';
+    private $model = Timetable::class;
 
-    /**
-     * Display a listing of Timetable.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    
+    public function __construct()
+    {
+        $this->crud = new CRUDFile($this->singleTableName, $this->model);
+    }
+    
+
     public function index()
     {
-        if (! Gate::allows('timetable_access')) {
-            return abort(401);
-        }
-
-
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('timetable_delete')) {
-                return abort(401);
-            }
-            $timetables = Timetable::onlyTrashed()->get();
-        } else {
-            $timetables = Timetable::all();
-        }
-
-        return view('admin.timetables.index', compact('timetables'));
+        $data = $this->crud->index();
+        return view($this->path.'.index', compact('data'));
     }
+    
 
-    /**
-     * Show the form for creating new Timetable.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        if (! Gate::allows('timetable_create')) {
-            return abort(401);
-        }
-        return view('admin.timetables.create');
+        $this->crud->create();
+        return view($this->path.'.create');
     }
 
-    /**
-     * Store a newly created Timetable in storage.
-     *
-     * @param StoreTimetablesRequest $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(StoreTimetablesRequest $request)
     {
-        if (! Gate::allows('timetable_create')) {
-            return abort(401);
-        }
-        $request = $this->saveFiles($request, '/images/timetable/', 640, 427);
-        $timetable = Timetable::create($request->all());
-
-
-
-        return redirect()->route('admin.timetables.index');
+        $this->crud->storeWidthHeight($request, 600, 427);
+        return redirect()->route($this->path.'.index');
     }
 
 
-    /**
-     * Show the form for editing Timetable.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
-    {
-        if (! Gate::allows('timetable_edit')) {
-            return abort(401);
-        }
-        $timetable = Timetable::findOrFail($id);
-
-        return view('admin.timetables.edit', compact('timetable'));
+    { 
+        $data = $this->crud->edit($id);
+        return view($this->path.'.edit', compact('data'));
     }
 
-    /**
-     * Update Timetable in storage.
-     *
-     * @param UpdateTimetablesRequest $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(UpdateTimetablesRequest $request, $id)
     {
-        if (! Gate::allows('timetable_edit')) {
-            return abort(401);
-        }
-        $request = $this->saveFiles($request, '/images/timetable/', 640, 427);
-        $timetable = Timetable::findOrFail($id);
-        if($_FILES['photo']['name']){
-            $timetable->removeImg();
-        }
-        $timetable->update($request->all());
-
-
-
-        return redirect()->route('admin.timetables.index');
+        $this->crud->update_file_width_height($request, $id, [$this->column], $columnSlug = null, 600, 427);
+        return redirect()->route($this->path.'.index');
     }
 
 
-    /**
-     * Remove Timetable from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        if (! Gate::allows('timetable_delete')) {
-            return abort(401);
-        }
-        $timetable = Timetable::findOrFail($id);
-        $timetable->delete();
-
-        return redirect()->route('admin.timetables.index');
+        $this->crud->destroy($id);
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Delete all selected Timetable at once.
-     *
-     * @param Request $request
-     */
+    
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('timetable_delete')) {
-            return abort(401);
-        }
-        if ($request->input('ids')) {
-            $entries = Timetable::whereIn('id', $request->input('ids'))->get();
-
-            foreach ($entries as $entry) {
-                $entry->delete();
-            }
-        }
+        $this->crud->massDestroy($request);
     }
 
 
-    /**
-     * Restore Timetable from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function restore($id)
     {
-        if (! Gate::allows('timetable_delete')) {
-            return abort(401);
-        }
-        $timetable = Timetable::onlyTrashed()->findOrFail($id);
-        $timetable->restore();
-
-        return redirect()->route('admin.timetables.index');
+        $this->crud->restore($id);
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Permanently delete Timetable from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function perma_del($id)
     {
-        if (! Gate::allows('timetable_delete')) {
-            return abort(401);
-        }
-        Timetable::onlyTrashed()->findOrFail($id)->remove();
-
-
-        return redirect()->route('admin.timetables.index');
+        $this->crud->perma_del_file($id, [$this->column]);
+        return redirect()->route($this->path.'.index');
     }
 }

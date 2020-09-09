@@ -57,21 +57,21 @@
 
                                 <td field-key='title'>{{ $section->title }}</td>
                                 <td field-key='photo_section_menu'>
-                                    <img class="photo" src="{{ asset(env('UPLOAD_PATH').'/images/sections/'.$section->photo_section_menu) }}"/>
+                                    <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Section::PATH.$section->photo_section_menu) }}"/>
                                 </td>
                                 <td field-key='photo'>
                                     @if($section->photo)
-                                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').'/images/sections/'.$section->photo) }}"/>
+                                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Section::PATH.$section->photo) }}"/>
                                     @else
-                                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').'/images/sections/'.'img-default.jpg') }}"/>
+                                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Section::PATH.'img-default.jpg') }}"/>
                                     @endif
                                 </td>
                                 <td field-key='description_main_page'>{!! $section->description_main_page !!}</td>
                                 <td field-key='photo_sport'>
                                     @if($section->photo_sport)
-                                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').'/images/sections/'.$section->photo_sport) }}"/>
+                                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Section::PATH.$section->photo_sport) }}"/>
                                     @else
-                                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').'/images/sections/'.'img-default.jpg') }}"/>
+                                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Section::PATH.'img-default.jpg') }}"/>
                                     @endif
                                 </td>
                                 <td field-key='description'>{!! $section->description !!}</td>

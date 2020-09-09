@@ -26,7 +26,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($timetables) > 0 ? 'datatable' : '' }} @can('timetable_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('timetable_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('timetable_delete')
@@ -44,8 +44,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($timetables) > 0)
-                        @foreach ($timetables as $timetable)
+                    @if (count($data) > 0)
+                        @foreach ($data as $timetable)
                             <tr data-entry-id="{{ $timetable->id }}">
                                 @can('timetable_delete')
                                     @if ( request('show_deleted') != 1 )<td></td>@endif
@@ -53,7 +53,7 @@
 
                                 <td field-key='photo'>
                                     @if($timetable->photo)
-                                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').'/images/timetable/' . $timetable->photo) }}"/>
+                                        <img class="photo" src="{{ asset(env('UPLOAD_PATH').App\Timetable::PATH.$timetable->photo) }}"/>
                                     @endif
                                 </td>
                                 <td field-key='timetable'>{!! $timetable->timetable !!}</td>
