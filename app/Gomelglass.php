@@ -21,23 +21,4 @@ class Gomelglass extends Model
     protected $hidden = [];
 
     const PATH = '/images/gomelglasses/';
-
-    //    БЛОК УДАЛЕНИЯ =====================================
-    /**
-     * Удаление фото при удалении записи в базе
-     */
-    public function removeImg()
-    {
-        if ($this->photo != null) {
-            Storage::delete(Gomelglass::PATH . $this->photo);
-        }
-    }
-
-    public function remove()
-    {
-        $this->removeImg();
-        $this->forceDelete();
-    }
-    //    КОНЕЦ БЛОК УДАЛЕНИЯ =====================================
-    
 }

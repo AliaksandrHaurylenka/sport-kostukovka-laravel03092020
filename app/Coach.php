@@ -24,23 +24,6 @@ class Coach extends Model
 
     const PATH = '/images/coaches/';
 
-    //    БЛОК УДАЛЕНИЯ =====================================
-    /**
-     * Удаление фото при удалении записи в базе
-     */
-    public function removeImg()
-    {
-        if ($this->photo != null) {
-            Storage::delete(Coach::PATH . $this->photo);
-        }
-    }
-
-    public function remove()
-    {
-        $this->removeImg();
-        $this->forceDelete();
-    }
-    //    КОНЕЦ БЛОК УДАЛЕНИЯ =====================================
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

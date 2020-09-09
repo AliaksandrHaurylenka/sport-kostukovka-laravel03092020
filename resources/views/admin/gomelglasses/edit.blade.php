@@ -50,62 +50,14 @@
                             {{ $errors->first('sport') }}
                         </p>
                     @endif
-                    <div>
-                        <label>
-                            {!! Form::radio('sport', 'Настольный теннис', false, ['required' => '']) !!}
-                            {{--{!! Form::radio('sport', 'tennis', false, ['required' => '']) !!}--}}
-                            Настольный теннис
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            {!! Form::radio('sport', 'Лыжи', false, ['required' => '']) !!}
-                            {{--{!! Form::radio('sport', 'ski', false, ['required' => '']) !!}--}}
-                            Лыжи
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            {!! Form::radio('sport', 'Плавание', false, ['required' => '']) !!}
-                            {{--{!! Form::radio('sport', 'swimming', false, ['required' => '']) !!}--}}
-                            Плавание
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            {!! Form::radio('sport', 'Волейбол', false, ['required' => '']) !!}
-                            {{--{!! Form::radio('sport', 'volleyball', false, ['required' => '']) !!}--}}
-                            Волейбол
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            {!! Form::radio('sport', 'Многоборье', false, ['required' => '']) !!}
-                            {{--{!! Form::radio('sport', 'multiathlon', false, ['required' => '']) !!}--}}
-                            Многоборье
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            {!! Form::radio('sport', 'Шахматы', false, ['required' => '']) !!}
-                            {{--{!! Form::radio('sport', 'chess', false, ['required' => '']) !!}--}}
-                            Шахматы
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            {!! Form::radio('sport', 'Дартс', false, ['required' => '']) !!}
-                            {{--{!! Form::radio('sport', 'darts', false, ['required' => '']) !!}                            Дартс--}}
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            {!! Form::radio('sport', 'Футбол', false, ['required' => '']) !!}
-                            {{--{!! Form::radio('sport', 'football', false, ['required' => '']) !!}--}}
-                            Футбол
-                        </label>
-                    </div>
-                    
+                    <label>{!! Form::radio('sport', 'Настольный теннис', false, ['required' => '']) !!}Настольный теннис</label>
+                    <label>{!! Form::radio('sport', 'Лыжи', false, ['required' => '', 'style' => 'margin-left: 1rem']) !!}Лыжи</label>
+                    <label>{!! Form::radio('sport', 'Плавание', false, ['required' => '', 'style' => 'margin-left: 1rem']) !!}Плавание</label>
+                    <label>{!! Form::radio('sport', 'Волейбол', false, ['required' => '', 'style' => 'margin-left: 1rem']) !!}Волейбол</label>
+                    <label>{!! Form::radio('sport', 'Многоборье', false, ['required' => '', 'style' => 'margin-left: 1rem']) !!}Многоборье</label>
+                    <label>{!! Form::radio('sport', 'Шахматы', false, ['required' => '', 'style' => 'margin-left: 1rem']) !!}Шахматы</label>
+                    <label>{!! Form::radio('sport', 'Дартс', false, ['required' => '', 'style' => 'margin-left: 1rem']) !!}Дартс</label>
+                    <label>{!! Form::radio('sport', 'Футбол', false, ['required' => '', 'style' => 'margin-left: 1rem']) !!}Футбол</label>                   
                 </div>
             </div>
             

@@ -21,23 +21,4 @@ class Board extends Model
     protected $hidden = [];
 
     const PATH = '/images/board/';
-
-    //    БЛОК УДАЛЕНИЯ =====================================
-    /**
-     * Удаление фото при удалении записи в базе
-     */
-    public function removeImg()
-    {
-        if ($this->photo != null) {
-            Storage::delete(Board::PATH . $this->photo);
-        }
-    }
-
-    public function remove()
-    {
-        $this->removeImg();
-        $this->forceDelete();
-    }
-    //    КОНЕЦ БЛОК УДАЛЕНИЯ =====================================
-    
 }
