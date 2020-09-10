@@ -14,7 +14,7 @@ interface CRUDInterface
 
   public function edit($id);
 
-  public function update($request, $id);
+  public function update($request, $id, $columnSlug);
 
   public function show($id);
 

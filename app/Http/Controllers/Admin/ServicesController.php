@@ -54,7 +54,7 @@ class ServicesController extends Controller
 
     public function update(UpdateServicesRequest $request, $id)
     {
-        $this->crud->update($request, $id);
+        $this->crud->update($request, $id, null);
         return redirect()->route($this->path.'.index');
     }
 

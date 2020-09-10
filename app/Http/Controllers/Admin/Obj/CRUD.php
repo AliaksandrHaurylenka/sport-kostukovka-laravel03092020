@@ -72,11 +72,13 @@ class CRUD implements CRUDInterface
     }
 
 
-    public function update($request, $id)
+    public function update($request, $id, $columnSlug)
     {
         $this->gate(self::EDIT);
-
         $data = $this->model::findOrFail($id);
+        if($data->$columnSlug){
+            $data->$columnSlug = null;
+        }
         $data->update($request->all());
     }
 

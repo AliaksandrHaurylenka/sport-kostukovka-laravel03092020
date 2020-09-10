@@ -3,7 +3,7 @@
 @section('content')
     <h3 class="page-title">@lang('quickadmin.tag.title')</h3>
     
-    {!! Form::model($tag, ['method' => 'PUT', 'route' => ['admin.tags.update', $tag->id]]) !!}
+    {!! Form::model($data, ['method' => 'PUT', 'route' => ['admin.tags.update', $data->id]]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">

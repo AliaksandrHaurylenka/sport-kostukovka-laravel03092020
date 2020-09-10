@@ -26,7 +26,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($tags) > 0 ? 'datatable' : '' }} @can('tag_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('tag_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('tag_delete')
@@ -44,8 +44,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($tags) > 0)
-                        @foreach ($tags as $tag)
+                    @if (count($data) > 0)
+                        @foreach ($data as $tag)
                             <tr data-entry-id="{{ $tag->id }}">
                                 @can('tag_delete')
                                     @if ( request('show_deleted') != 1 )<td></td>@endif

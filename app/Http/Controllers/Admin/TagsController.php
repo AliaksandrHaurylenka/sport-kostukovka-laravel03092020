@@ -4,175 +4,85 @@ namespace App\Http\Controllers\Admin;
 
 use App\Tag;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreTagsRequest;
 use App\Http\Requests\Admin\UpdateTagsRequest;
 
+use App\Http\Controllers\Admin\Obj\CRUD;
 class TagsController extends Controller
 {
-    /**
-     * Display a listing of Tag.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $crud;
+    private $path = 'admin.tags';
+    private $singleTableName = 'tag';
+    private $model = Tag::class;
+
+    public function __construct()
+    {
+        $this->crud = new CRUD($this->singleTableName, $this->model);
+    }
+
+
     public function index()
     {
-        if (! Gate::allows('tag_access')) {
-            return abort(401);
-        }
-
-
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('tag_delete')) {
-                return abort(401);
-            }
-            $tags = Tag::onlyTrashed()->get();
-        } else {
-            $tags = Tag::all();
-        }
-
-        return view('admin.tags.index', compact('tags'));
+        $data = $this->crud->index();
+        return view($this->path.'.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating new Tag.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        if (! Gate::allows('tag_create')) {
-            return abort(401);
-        }
-        return view('admin.tags.create');
+        $this->crud->create();
+        return view($this->path.'.create');
     }
 
-    /**
-     * Store a newly created Tag in storage.
-     *
-     * @param  \App\Http\Requests\StoreTagsRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(StoreTagsRequest $request)
     {
-        if (! Gate::allows('tag_create')) {
-            return abort(401);
-        }
-        $tag = Tag::create($request->all());
-
-
-
-        return redirect()->route('admin.tags.index');
+        $this->crud->store($request);
+        return redirect()->route($this->path.'.index');
     }
 
 
-    /**
-     * Show the form for editing Tag.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        if (! Gate::allows('tag_edit')) {
-            return abort(401);
-        }
-        $tag = Tag::findOrFail($id);
-
-        return view('admin.tags.edit', compact('tag'));
+        $data = $this->crud->edit($id);
+        return view($this->path.'.edit', compact('data'));
     }
 
-    /**
-     * Update Tag in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTagsRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(UpdateTagsRequest $request, $id)
     {
-        if (! Gate::allows('tag_edit')) {
-            return abort(401);
-        }
-        $tag = Tag::findOrFail($id);
-        $tag->slug = null;//для обновления поля slug
-        $tag->update($request->all());
-
-
-
-        return redirect()->route('admin.tags.index');
+        $this->crud->update($request, $id, 'slug');
+        return redirect()->route($this->path.'.index');
     }
 
 
-    /**
-     * Remove Tag from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        if (! Gate::allows('tag_delete')) {
-            return abort(401);
-        }
-        $tag = Tag::findOrFail($id);
-        $tag->delete();
-
-        return redirect()->route('admin.tags.index');
+        $this->crud->destroy($id);
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Delete all selected Tag at once.
-     *
-     * @param Request $request
-     */
+
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('tag_delete')) {
-            return abort(401);
-        }
-        if ($request->input('ids')) {
-            $entries = Tag::whereIn('id', $request->input('ids'))->get();
-
-            foreach ($entries as $entry) {
-                $entry->delete();
-            }
-        }
+        $this->crud->massDestroy($request);
     }
 
 
-    /**
-     * Restore Tag from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function restore($id)
     {
-        if (! Gate::allows('tag_delete')) {
-            return abort(401);
-        }
-        $tag = Tag::onlyTrashed()->findOrFail($id);
-        $tag->restore();
-
-        return redirect()->route('admin.tags.index');
+        $this->crud->restore($id);
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Permanently delete Tag from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function perma_del($id)
     {
-        if (! Gate::allows('tag_delete')) {
-            return abort(401);
-        }
-        $tag = Tag::onlyTrashed()->findOrFail($id);
-        $tag->forceDelete();
-
-        return redirect()->route('admin.tags.index');
+        $this->crud->perma_del($id);
+        return redirect()->route($this->path.'.index');
     }
 }
