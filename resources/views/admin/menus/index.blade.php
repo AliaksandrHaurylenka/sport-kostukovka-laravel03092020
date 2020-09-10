@@ -26,7 +26,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($menus) > 0 ? 'datatable' : '' }} @can('menu_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('menu_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('menu_delete')
@@ -44,8 +44,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($menus) > 0)
-                        @foreach ($menus as $menu)
+                    @if (count($data) > 0)
+                        @foreach ($data as $menu)
                             <tr data-entry-id="{{ $menu->id }}">
                                 @can('menu_delete')
                                     @if ( request('show_deleted') != 1 )<td></td>@endif
