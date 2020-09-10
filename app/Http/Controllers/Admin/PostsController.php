@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePostsRequest;
 use App\Http\Requests\Admin\UpdatePostsRequest;
-use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Controllers\Traits\FileUploadPostTrait;
 use Illuminate\Support\Facades\Notification;
 

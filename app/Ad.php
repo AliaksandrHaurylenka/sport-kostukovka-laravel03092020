@@ -9,7 +9,7 @@ use App\Http\Controllers\Traits\FileDelTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Date\Date;
-use League\Flysystem\Config;
+
 
 /**
  * Class Ad

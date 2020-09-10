@@ -7,43 +7,45 @@ use App\Subscribe;
 use App\User;
 use App\FoldersSystem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreAdsRequest;
 use App\Http\Requests\Admin\UpdateAdsRequest;
-// use App\Http\Controllers\Traits\FileUploadTrait;
+use App\Http\Controllers\Traits\FileUploadTrait;
+
 
 use App\Http\Controllers\Admin\Obj\CRUDFile;
 class AdsController extends Controller
 {
-    
+    use FileUploadTrait;
+
     private $crud;
+    private $column = 'photo';
+    private $path = 'admin.ads';
+    private $singleTableName = 'ad';
+    private $model = Ad::class;
 
     public function __construct()
     {
-        $this->crud = new CRUDFile('ad', Ad::class);
+        $this->crud = new CRUDFile($this->singleTableName, $this->model);
     }
+    
 
     public function index()
     {
-        $ads = $this->crud->index();
-        return view('admin.ads.index', compact('ads'));
+        $data = $this->crud->index();
+        return view($this->path.'.index', compact('data'));
     }
 
-   
+    
     public function create()
     {
         $this->crud->create();
-        return view('admin.ads.create');
+        return view($this->path.'.create');
     }
-
-    /**
-     * Store a newly created Ad in storage.
-     *
-     * @param StoreAdsRequest $request
-     * @return \Illuminate\Http\Response
-     */
+    
+    
     public function store(StoreAdsRequest $request)
     {
         if (! Gate::allows('ad_create')) {
@@ -61,12 +63,7 @@ class AdsController extends Controller
     }
 
 
-    /**
-     * Show the form for editing Ad.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         if (! Gate::allows('ad_edit')) {
@@ -86,13 +83,7 @@ class AdsController extends Controller
         return view('admin.ads.edit', compact('ad'));
     }
 
-    /**
-     * Update Ad in storage.
-     *
-     * @param UpdateAdsRequest $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(UpdateAdsRequest $request, $id)
     {
         if (! Gate::allows('ad_edit')) {
@@ -115,66 +106,28 @@ class AdsController extends Controller
     }
 
 
-    /**
-     * Remove Ad from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
-        if (! Gate::allows('ad_delete')) {
-            return abort(401);
-        }
-        $ad = Ad::findOrFail($id);
-        $ad->delete();
-
-        return redirect()->route('admin.ads.index');
+        $this->crud->destroy($id);
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Delete all selected Ad at once.
-     *
-     * @param Request $request
-     */
+    
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('ad_delete')) {
-            return abort(401);
-        }
-        if ($request->input('ids')) {
-            $entries = Ad::whereIn('id', $request->input('ids'))->get();
-
-            foreach ($entries as $entry) {
-                $entry->delete();
-            }
-        }
+        $this->crud->massDestroy($request);
     }
 
 
-    /**
-     * Restore Ad from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function restore($id)
     {
-        if (! Gate::allows('ad_delete')) {
-            return abort(401);
-        }
-        $ad = Ad::onlyTrashed()->findOrFail($id);
-        $ad->restore();
-
-        return redirect()->route('admin.ads.index');
+        $this->crud->restore($id);
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Permanently delete Ad from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function perma_del($id)
     {
         if (! Gate::allows('ad_delete')) {
@@ -182,14 +135,13 @@ class AdsController extends Controller
         }
         
         $user = new Ad();
-        //dd($user->author()->name);
 
         if (Auth::user()->role_id == 2){
             FoldersSystem::del_folder_img($id, 'ads', User::ADS_PATH.Auth::user()->name.'/');
         }
         else{
             FoldersSystem::del_folder_img($id, 'ads', Ad::PATH);
-            //FoldersSystem::del_folder_img($id, 'ads', User::ADS_PATH.$user->author()->name.'/');
+            
         }
 
         Ad::onlyTrashed()->findOrFail($id)->remove();
