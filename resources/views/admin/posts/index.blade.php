@@ -27,7 +27,7 @@
 
         <div class="panel-body table-responsive">
             <table class="table table-bordered table-striped
-                {{ count($posts) > 0 ? 'datatable' : '' }}
+                {{ count($data) > 0 ? 'datatable' : '' }}
                 @can('post_delete')
                     @if ( request('show_deleted') != 1 ) dt-select @endif
                 @endcan">
@@ -53,8 +53,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($posts) > 0)
-                        @foreach ($posts as $post)
+                    @if (count($data) > 0)
+                        @foreach ($data as $post)
                             <tr data-entry-id="{{ $post->id }}">
                                 @can('post_delete')
                                     @if ( request('show_deleted') != 1 )<td></td>@endif
