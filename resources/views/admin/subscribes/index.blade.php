@@ -26,7 +26,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($subscribes) > 0 ? 'datatable' : '' }} @can('subscribe_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('subscribe_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
                 <thead>
                     <tr>
                         @can('subscribe_delete')
@@ -44,8 +44,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($subscribes) > 0)
-                        @foreach ($subscribes as $subscribe)
+                    @if (count($data) > 0)
+                        @foreach ($data as $subscribe)
                             <tr data-entry-id="{{ $subscribe->id }}">
                                 @can('subscribe_delete')
                                     @if ( request('show_deleted') != 1 )<td></td>@endif

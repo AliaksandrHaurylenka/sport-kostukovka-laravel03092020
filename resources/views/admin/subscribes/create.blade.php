@@ -21,20 +21,7 @@
                         </p>
                     @endif
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    {!! Form::label('token', trans('quickadmin.subscribe.fields.token').'', ['class' => 'control-label']) !!}
-                    {!! Form::text('token', old('token'), ['class' => 'form-control', 'placeholder' => '']) !!}
-                    <p class="help-block"></p>
-                    @if($errors->has('token'))
-                        <p class="help-block">
-                            {{ $errors->first('token') }}
-                        </p>
-                    @endif
-                </div>
-            </div>
-            
+            </div>            
         </div>
     </div>
 
