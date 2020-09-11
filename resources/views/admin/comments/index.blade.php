@@ -27,7 +27,7 @@
 
     <div class="panel-body table-responsive">
       <table
-          class="table table-bordered table-striped {{ count($comments) > 0 ? 'datatable' : '' }} @can('comment_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
+          class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('comment_delete') @if ( request('show_deleted') != 1 ) dt-select @endif @endcan">
         <thead>
         <tr>
           @can('comment_delete')
@@ -49,8 +49,8 @@
         </thead>
 
         <tbody>
-        @if (count($comments) > 0)
-          @foreach ($comments as $comment)
+        @if (count($data) > 0)
+          @foreach ($data as $comment)
             <tr data-entry-id="{{ $comment->id }}">
               @can('comment_delete')
                 @if ( request('show_deleted') != 1 )

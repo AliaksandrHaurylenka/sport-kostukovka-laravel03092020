@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Comment;
 use App\Subscribe;
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreCommentsRequest;
 use App\Http\Requests\Admin\UpdateCommentsRequest;
+
+use App\Http\Controllers\Admin\Obj\CRUD;
 
 class CommentsController extends Controller
 {
@@ -26,167 +25,64 @@ class CommentsController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display a listing of Comment.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $crud;
+    private $path = 'admin.comments';
+    private $singleTableName = 'comment';
+    private $model = Comment::class;
+
+    public function __construct()
+    {
+        $this->crud = new CRUD($this->singleTableName, $this->model);
+    }
+
+
     public function index()
     {
-        if (! Gate::allows('comment_access')) {
-            return abort(401);
-        }
-
-
-        if (request('show_deleted') == 1) {
-            if (! Gate::allows('comment_delete')) {
-                return abort(401);
-            }
-            $comments = Comment::onlyTrashed()->get();
-        } else {
-            $comments = Comment::all();
-        }
-
-        return view('admin.comments.index', compact('comments'));
-    }
-
-    /**
-     * Show the form for creating new Comment.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        if (! Gate::allows('comment_create')) {
-            return abort(401);
-        }
-        return view('admin.comments.create');
-    }
-
-    /**
-     * Store a newly created Comment in storage.
-     *
-     * @param StoreCommentsRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreCommentsRequest $request)
-    {
-        if (! Gate::allows('comment_create')) {
-            return abort(401);
-        }
-        $comment = Comment::create($request->all());
-
-
-
-        return redirect()->route('admin.comments.index');
+        $data = $this->crud->index();
+        return view($this->path.'.index', compact('data'));
     }
 
 
-    /**
-     * Show the form for editing Comment.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        if (! Gate::allows('comment_edit')) {
-            return abort(401);
-        }
-        $comment = Comment::findOrFail($id);
-
-        return view('admin.comments.edit', compact('comment'));
+        $data = $this->crud->edit($id);
+        return view($this->path.'.edit', compact('data'));
     }
 
-    /**
-     * Update Comment in storage.
-     *
-     * @param UpdateCommentsRequest $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(UpdateCommentsRequest $request, $id)
     {
-        if (! Gate::allows('comment_edit')) {
-            return abort(401);
-        }
-        $comment = Comment::findOrFail($id);
-        $comment->update($request->all());
-
-
-
-        return redirect()->route('admin.comments.index');
+        $this->crud->update($request, $id, null);
+        return redirect()->route($this->path.'.index');
     }
 
 
-    /**
-     * Remove Comment from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        if (! Gate::allows('comment_delete')) {
-            return abort(401);
-        }
-        $comment = Comment::findOrFail($id);
-        $comment->delete();
-
-        return redirect()->route('admin.comments.index');
+        $this->crud->destroy($id);
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Delete all selected Comment at once.
-     *
-     * @param Request $request
-     */
+
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('comment_delete')) {
-            return abort(401);
-        }
-        if ($request->input('ids')) {
-            $entries = Comment::whereIn('id', $request->input('ids'))->get();
-
-            foreach ($entries as $entry) {
-                $entry->delete();
-            }
-        }
+        $this->crud->massDestroy($request);
     }
 
 
-    /**
-     * Restore Comment from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function restore($id)
     {
-        if (! Gate::allows('comment_delete')) {
-            return abort(401);
-        }
-        $comment = Comment::onlyTrashed()->findOrFail($id);
-        $comment->restore();
-
-        return redirect()->route('admin.comments.index');
+        $this->crud->restore($id);
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Permanently delete Comment from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function perma_del($id)
     {
-        if (! Gate::allows('comment_delete')) {
-            return abort(401);
-        }
-        $comment = Comment::onlyTrashed()->findOrFail($id);
-        $comment->forceDelete();
-
-        return redirect()->route('admin.comments.index');
+        $this->crud->perma_del($id);
+        return redirect()->route($this->path.'.index');
     }
 }

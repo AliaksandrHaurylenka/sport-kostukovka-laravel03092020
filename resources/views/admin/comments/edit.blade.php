@@ -3,7 +3,7 @@
 @section('content')
     <h3 class="page-title">@lang('quickadmin.comment.title')</h3>
     
-    {!! Form::model($comment, ['method' => 'PUT', 'route' => ['admin.comments.update', $comment->id]]) !!}
+    {!! Form::model($data, ['method' => 'PUT', 'route' => ['admin.comments.update', $data->id]]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">

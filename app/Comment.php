@@ -112,7 +112,7 @@ class Comment extends Model
         }else{
             Comment::adminNewComment($comment);
         }
-
+    }
     //================END COMMENTS===================
     
 }
