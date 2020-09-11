@@ -18,7 +18,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($roles) > 0 ? 'datatable' : '' }} @can('role_delete') dt-select @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('role_delete') dt-select @endcan">
                 <thead>
                     <tr>
                         @can('role_delete')
@@ -32,8 +32,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($roles) > 0)
-                        @foreach ($roles as $role)
+                    @if (count($data) > 0)
+                        @foreach ($data as $role)
                             <tr data-entry-id="{{ $role->id }}">
                                 @can('role_delete')
                                     <td></td>

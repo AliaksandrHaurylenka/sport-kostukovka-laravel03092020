@@ -14,7 +14,7 @@
                     <table class="table table-bordered table-striped">
                         <tr>
                             <th>@lang('quickadmin.roles.fields.title')</th>
-                            <td field-key='title'>{{ $role->title }}</td>
+                            <td field-key='title'>{{ $data->title }}</td>
                         </tr>
                     </table>
                 </div>
