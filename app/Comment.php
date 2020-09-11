@@ -87,7 +87,6 @@ class Comment extends Model
     public static function allUsers($comment)
     {
        Notification::send(User::all(), new NewComment($comment));
-       // dd(Notification::send(User::all(), new NewComment($comment)));
     }
 
     /**
@@ -98,7 +97,6 @@ class Comment extends Model
     public static function adminNewComment($comment)
     {
         User::find(1)->notify(new NewComment($comment));
-        // dd(User::find(1)->notify(new NewComment($comment)));
     }
 
     /**
@@ -115,10 +113,6 @@ class Comment extends Model
             Comment::adminNewComment($comment);
         }
 
-//        dd($event->folder);
-        //$folder = $event->folder;
-        //return $folder;
-    }
     //================END COMMENTS===================
     
 }
