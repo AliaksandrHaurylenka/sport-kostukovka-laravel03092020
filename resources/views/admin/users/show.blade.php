@@ -14,27 +14,27 @@
                     <table class="table table-bordered table-striped">
                         <tr>
                             <th>@lang('quickadmin.users.fields.name')</th>
-                            <td field-key='name'>{{ $user->name }}</td>
+                            <td field-key='name'>{{ $data->name }}</td>
                         </tr>
                         <tr>
                             <th>@lang('quickadmin.users.fields.avatar')</th>
                             <td field-key='avatar'>
-                                @if($user->avatar)
-                                    <img class="photo" src="{{ asset(App\User::PATH . $user->avatar) }}"/>
+                                @if($data->avatar)
+                                    <img class="photo" src="{{ asset(App\User::PATH . $data->avatar) }}"/>
                                 @endif
                             </td>
                         </tr>
                         <tr>
                             <th>@lang('quickadmin.users.fields.description')</th>
-                            <td field-key='description'>{{ $user->description }}</td>
+                            <td field-key='description'>{!! $data->description !!}</td>
                         </tr>
                         <tr>
                             <th>@lang('quickadmin.users.fields.email')</th>
-                            <td field-key='email'>{{ $user->email }}</td>
+                            <td field-key='email'>{{ $data->email }}</td>
                         </tr>
                         <tr>
                             <th>@lang('quickadmin.users.fields.role')</th>
-                            <td field-key='role'>{{ $user->role->title ?? '' }}</td>
+                            <td field-key='role'>{{ $data->role->title ?? '' }}</td>
                         </tr>
                     </table>
                 </div>

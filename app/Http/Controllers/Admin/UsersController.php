@@ -8,160 +8,81 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUsersRequest;
 use App\Http\Requests\Admin\UpdateUsersRequest;
-use App\Http\Controllers\Traits\FileUploadTrait;
+
+use App\Http\Controllers\Admin\Obj\CRUDFile;
 
 class UsersController extends Controller
 {
-    use FileUploadTrait;
 
-    /**
-     * Display a listing of User.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private $crud;
+    private $column = 'avatar';
+    private $path = 'admin.users';
+    private $singleTableName = 'user';
+    private $model = User::class;
+
+
+    public function __construct()
     {
-        if (! Gate::allows('user_access')) {
-            return abort(401);
-        }
-
-
-                $users = User::all();
-
-        return view('admin.users.index', compact('users'));
+        $this->crud = new CRUDFile($this->singleTableName, $this->model);
     }
 
-    /**
-     * Show the form for creating new User.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index()
+    {
+        $data = $this->crud->index();
+        return view($this->path.'.index', compact('data'));
+    }
+
+
     public function create()
     {
-        if (! Gate::allows('user_create')) {
-            return abort(401);
-        }
-        
+        $this->crud->create();
         $roles = \App\Role::get()->pluck('title', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
-
         return view('admin.users.create', compact('roles'));
     }
 
-  /**
-   * Store a newly created User in storage.
-   *
-   * @param StoreUsersRequest $request
-   * @return \Illuminate\Http\Response
-   */
     public function store(StoreUsersRequest $request)
     {
-        if (! Gate::allows('user_create')) {
-            return abort(401);
-        }
-        $request = $this->saveFiles($request, User::PATH);
-        $user = User::create($request->all());
-
-
-
-        return redirect()->route('admin.users.index');
+        $this->crud->store($request);
+        return redirect()->route($this->path.'.index');
     }
 
 
-    /**
-     * Show the form for editing User.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        if (! Gate::allows('user_edit')) {
-            return abort(401);
-        }
-        
+        $data = $this->crud->edit($id);
         $roles = \App\Role::get()->pluck('title', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
-
-        $user = User::findOrFail($id);
-
-        return view('admin.users.edit', compact('user', 'roles'));
+        return view('admin.users.edit', compact('data', 'roles'));
     }
 
-  /**
-   * Update User in storage.
-   *
-   * @param UpdateUsersRequest $request
-   * @param  int $id
-   * @return \Illuminate\Http\Response
-   */
+  
     public function update(UpdateUsersRequest $request, $id)
     {
-        if (! Gate::allows('user_edit')) {
-            return abort(401);
-        }
-        $request = $this->saveFiles($request, User::PATH);
-        $user = User::findOrFail($id);
-        if($_FILES['avatar']['name']){
-            $user->removeImg();
-        }
-        $user->update($request->all());
-
-
-
-        return redirect()->route('admin.users.index');
+        $this->crud->update_file($request, $id, [$this->column]);
+        return redirect()->route($this->path.'.index');
     }
 
 
-    /**
-     * Display User.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
-        if (! Gate::allows('user_view')) {
-            return abort(401);
-        }
-        $user = User::findOrFail($id);
-
-        return view('admin.users.show', compact('user'));
+        $data = $this->crud->show($id);
+        return view($this->path.'.show', compact('data'));
     }
 
 
-    /**
-     * Remove User from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         if (! Gate::allows('user_delete')) {
             return abort(401);
         }
-        $user = User::findOrFail($id)->remove();
-        //$user->delete();
-
-        return redirect()->route('admin.users.index');
+        User::findOrFail($id)->remove();
+        return redirect()->route($this->path.'.index');
     }
 
-    /**
-     * Delete all selected User at once.
-     *
-     * @param Request $request
-     */
+    
     public function massDestroy(Request $request)
     {
-        if (! Gate::allows('user_delete')) {
-            return abort(401);
-        }
-        if ($request->input('ids')) {
-            $entries = User::whereIn('id', $request->input('ids'))->get();
-
-            foreach ($entries as $entry) {
-                $entry->delete();
-            }
-        }
+        $this->crud->massDestroy($request);
     }
 
 }

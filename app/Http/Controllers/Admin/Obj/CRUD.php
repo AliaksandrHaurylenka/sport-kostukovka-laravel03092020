@@ -86,7 +86,6 @@ class CRUD implements CRUDInterface
     public function show($id)
     {
         $this->gate(self::VIEW);
-
         return $this->model::findOrFail($id);
     }
 
@@ -94,7 +93,6 @@ class CRUD implements CRUDInterface
     public function destroy($id)
     {
         $this->gate(self::DELETE);
-
         $data = $this->model::findOrFail($id);
         $data->delete();
     }
@@ -103,7 +101,6 @@ class CRUD implements CRUDInterface
     public function massDestroy($request)
     {
         $this->gate(self::DELETE);
-
         if ($request->input(self::MASS_DESTROY_INPUT_NAME)) {
             $entries = $this->model::whereIn(self::NAME_ROW, $request->input(self::MASS_DESTROY_INPUT_NAME))->get();
             foreach ($entries as $entry) {
@@ -116,7 +113,6 @@ class CRUD implements CRUDInterface
     public function restore($id)
     {
         $this->gate(self::DELETE);
-
         $data = $this->model::onlyTrashed()->findOrFail($id);
         $data->restore();
     }
@@ -125,7 +121,6 @@ class CRUD implements CRUDInterface
     public function perma_del($id)
     {
         $this->gate(self::DELETE);
-
         $data = $this->model::onlyTrashed()->findOrFail($id);
         $data->forceDelete();
     }

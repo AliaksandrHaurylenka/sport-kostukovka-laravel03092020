@@ -9,7 +9,6 @@
         
     </p>
     @endcan
-
     
 
     <div class="panel panel-default">
@@ -18,7 +17,7 @@
         </div>
 
         <div class="panel-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($users) > 0 ? 'datatable' : '' }} @can('user_delete') dt-select @endcan">
+            <table class="table table-bordered table-striped {{ count($data) > 0 ? 'datatable' : '' }} @can('user_delete') dt-select @endcan">
                 <thead>
                     <tr>
                         @can('user_delete')
@@ -36,8 +35,8 @@
                 </thead>
                 
                 <tbody>
-                    @if (count($users) > 0)
-                        @foreach ($users as $user)
+                    @if (count($data) > 0)
+                        @foreach ($data as $user)
                             <tr data-entry-id="{{ $user->id }}">
                                 @can('user_delete')
                                     <td></td>
