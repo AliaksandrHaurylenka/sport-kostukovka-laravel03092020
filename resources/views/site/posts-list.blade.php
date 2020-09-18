@@ -14,6 +14,20 @@
 
 @section('description', 'г. Гомель, микрорайон Костюковка, Государственное учреждение "Физкультурно-оздоровительный центр "Костюковка-Спорт"')
 
+@section('breadcrumbs')
+  @if($section)
+    {!! Breadcrumbs::render('category.show', $section); !!}
+  @elseif($tag_title)
+    {!! Breadcrumbs::render('tag.show', $tag_title); !!}
+  @elseif($year)
+    {!! Breadcrumbs::render('year', $year); !!}
+  @elseif($user_name)
+    {!! Breadcrumbs::render('user_name', $user_name); !!}
+  @else
+    {!! Breadcrumbs::render('no-category.show'); !!}
+  @endif
+@endsection
+
 @section('content')
   <!--Main listing-->
 

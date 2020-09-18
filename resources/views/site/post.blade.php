@@ -3,6 +3,10 @@
 @section('title', $post->title)
 @section('description', strip_tags(getLengthString($post->content, 140)))
 
+@section('breadcrumbs')
+  {!! Breadcrumbs::render('post.show', $post->section, $post); !!}
+@endsection
+
 @section('content')
 
 	<!--Featured Image-->

@@ -16,12 +16,7 @@
             </div>
 
             <!-- Card content -->
-            <div class="card-body">
-
-              <!-- Title -->
-            {{--<h4 class="card-title text-center">{!!$section->description_main_page!!}</h4>--}}
-            <!-- Text -->
-              <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+            <div class="card-body text-center">
               <a href="{{route($section->slug)}}" class="btn btn-light-blue btn-md text-white waves-effect waves-light">
                 {{$section->title}}
               </a>

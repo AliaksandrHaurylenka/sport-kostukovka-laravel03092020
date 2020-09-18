@@ -39,7 +39,27 @@ class PostsController extends Controller
 
     public function index()
     {
-        $data = $this->crud->index();
+        // $data = $this->crud->index();
+
+        if (! Gate::allows('post_access')) {
+            return abort(401);
+        }
+
+
+        if (request('show_deleted') == 1) {
+            if (! Gate::allows('post_delete')) {
+                return abort(401);
+            }
+            $data = Post::onlyTrashed()->get();
+        } else {
+//            Вывод постов для админа и простого пользователя
+            if(Auth::user()->role_id == 2){
+                $data = Post::where('user_id', Auth::user()->id)->latest()->get();
+            }
+            else {
+                $data = Post::all()->reverse();
+            }
+        }
         return view($this->path.'.index', compact('data'));
     }
 

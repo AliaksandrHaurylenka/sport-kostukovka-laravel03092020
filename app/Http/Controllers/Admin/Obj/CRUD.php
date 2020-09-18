@@ -45,7 +45,7 @@ class CRUD implements CRUDInterface
             $this->gate(self::DELETE);
             $nameTable = $this->model::onlyTrashed()->get();
         } else {
-            $nameTable = $this->model::all();
+            $nameTable = $this->model::all()->reverse();
         }
 
         return $nameTable;

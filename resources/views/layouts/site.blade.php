@@ -30,22 +30,26 @@ ini_set('display_startup_errors', 1);
 		
     <div class="container-fluid grey lighten-4">
         <div class="container">
+            <div class="pt-3">
+                @yield('breadcrumbs')
+            </div>
+            
 
             <!--Blog-->
-            <div class="row pt-3">
+            <div class="row">
             	<!--Main listing-->
-                <div class="col-md-8 col-12 mt-1">
+                <div class="col-md-8 col-12">
                 	@yield('content')
                 </div>
                 <!--Main listing-->
 
                 <!--Sidebar-->
-                <div class="col-md-4 col-12 mt-1">
+                <div class="col-md-4 col-12">
                 	@include('site.blocks.sidebar.sidebar')
                 </div>
                 <!--Sidebar-->
-
             </div>
+
         </div>
     </div>
        

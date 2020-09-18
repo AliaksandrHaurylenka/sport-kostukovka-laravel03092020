@@ -1,8 +1,22 @@
-#sendmessage,
-#senderror {
-  display: none;
-}
+// #sendmessage,
+// #senderror {
+//   display: none;
+// }
 
-#senderror span {
-  font-weight: bold;
+// #senderror span {
+//   font-weight: bold;
+// }
+
+ol{
+  &.breadcrumb {
+    background-color: #f5f5f5 !important;
+    padding: .75rem 0 0;
+    margin-bottom: 0;
+    a {
+      color: #0d47a1;
+      &:hover{
+        color: #6c757d;
+      }
+    }  
+  }     
 }

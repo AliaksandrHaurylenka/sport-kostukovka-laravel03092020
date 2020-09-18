@@ -3,6 +3,10 @@
 @section('title', 'Костюковские Лужники.Спорт-Костюковка')
 @section('description', 'г. Гомель, микрорайон Костюковка, Государственное учреждение "Физкультурно-оздоровительный центр "Костюковка-Спорт"')
 
+@section('breadcrumbs')
+  {!! Breadcrumbs::render(); !!}
+@endsection
+
 @section('content')
   <section class="wow fadeIn mt-5">
     <div class="row justify-content-end">

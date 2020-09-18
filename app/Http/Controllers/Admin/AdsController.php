@@ -34,7 +34,25 @@ class AdsController extends Controller
 
     public function index()
     {
-        $data = $this->crud->index();
+        // $data = $this->crud->index();
+        if (! Gate::allows('ad_access')) {
+            return abort(401);
+        }
+
+
+        if (request('show_deleted') == 1) {
+            if (! Gate::allows('ad_delete')) {
+                return abort(401);
+            }
+            $data = Ad::onlyTrashed()->get();
+        } else {
+            if(Auth::user()->role_id == 2){
+                $data = Ad::where('user_id', Auth::user()->id)->get();
+            }
+            else {
+                $data = Ad::all();
+            }
+        }
         return view($this->path.'.index', compact('data'));
     }
 

@@ -3,6 +3,10 @@
 @section('title', 'Новости.Спорт-Костюковка')
 @section('description', 'г. Гомель, микрорайон Костюковка, Государственное учреждение "Физкультурно-оздоровительный центр "Костюковка-Спорт"')
 
+@section('breadcrumbs')
+  {!! Breadcrumbs::render(); !!}
+@endsection
+
 @section('content')
 
 <h1 class="h1-responsive mt-5">Спортивные события</h1>

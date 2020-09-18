@@ -22,4 +22,5 @@ mix
   .setResourceRoot('build')
   .js('resources/assets/js/app.js', 'js')
   .sass('resources/assets/sass/app.scss', 'css')
+  .sass('resources/assets/sass/my_style.scss', 'css')
   .version();
