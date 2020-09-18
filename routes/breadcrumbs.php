@@ -9,11 +9,51 @@ Breadcrumbs::register('main', function (Crumbs $crumbs) {
 
 Breadcrumbs::register('uslugi', function (Crumbs $crumbs) {
     $crumbs->parent('main');
-    $crumbs->push('Услуги', route('uslugi'));
+    $crumbs->push('Услуги');
+});
+Breadcrumbs::register('raspisanie', function (Crumbs $crumbs) {
+    $crumbs->parent('main');
+    $crumbs->push('Расписание');
+});
+Breadcrumbs::register('kontakty', function (Crumbs $crumbs) {
+    $crumbs->parent('main');
+    $crumbs->push('Контакты');
+});
+Breadcrumbs::register('doska-pocheta', function (Crumbs $crumbs) {
+    $crumbs->parent('main');
+    $crumbs->push('Доска почета');
+});
+Breadcrumbs::register('oao-gomelsteklo', function (Crumbs $crumbs) {
+    $crumbs->parent('main');
+    $crumbs->push('ОАО "Гомельстекло"');
 });
 Breadcrumbs::register('kostyukovskie-luzhniki', function (Crumbs $crumbs) {
     $crumbs->parent('main');
     $crumbs->push('Костюковские Лужники');
+});
+Breadcrumbs::register('plavanie', function (Crumbs $crumbs) {
+    $crumbs->parent('main');
+    $crumbs->push('Плавание');
+});
+Breadcrumbs::register('borba', function (Crumbs $crumbs) {
+    $crumbs->parent('main');
+    $crumbs->push('Борьба');
+});
+Breadcrumbs::register('legkaya-atletika', function (Crumbs $crumbs) {
+    $crumbs->parent('main');
+    $crumbs->push('Легкая атлетика');
+});
+Breadcrumbs::register('tyazhelaya-atletika', function (Crumbs $crumbs) {
+    $crumbs->parent('main');
+    $crumbs->push('Тяжелая атлетика');
+});
+Breadcrumbs::register('futbol', function (Crumbs $crumbs) {
+    $crumbs->parent('main');
+    $crumbs->push('Футбол');
+});
+Breadcrumbs::register('voleybol', function (Crumbs $crumbs) {
+    $crumbs->parent('main');
+    $crumbs->push('Волейбол');
 });
 Breadcrumbs::register('novosti', function (Crumbs $crumbs) {
     $crumbs->parent('main');

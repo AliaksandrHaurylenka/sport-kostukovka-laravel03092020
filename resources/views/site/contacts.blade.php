@@ -3,6 +3,10 @@
 @section('title', 'Контакты.Спорт-Костюковка')
 @section('description', 'г. Гомель, микрорайон Костюковка, Государственное учреждение "Физкультурно-оздоровительный центр "Костюковка-Спорт"')
 
+@section('breadcrumbs')
+  {!! Breadcrumbs::render(); !!}
+@endsection
+
 @section('content')
 
   @include('site.blocks.grafic')

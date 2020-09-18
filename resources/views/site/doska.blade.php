@@ -3,6 +3,10 @@
 @section('title', 'Доска почета.Спорт-Костюковка')
 @section('description', 'г. Гомель, микрорайон Костюковка, Государственное учреждение "Физкультурно-оздоровительный центр "Костюковка-Спорт"')
 
+@section('breadcrumbs')
+  {!! Breadcrumbs::render(); !!}
+@endsection
+
 @section('content')
   <section class="wow fadeIn mt-5">
     <h1 class="h1-responsive text-uppercase">Быстрее</h1>
