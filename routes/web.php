@@ -39,13 +39,6 @@ Route::get('/doska-pocheta', 'HistorysController@doska')->name('doska-pocheta');
 Route::get('/oao-gomelsteklo', 'HistorysController@gomelsteklo')->name('oao-gomelsteklo');
 Route::get('/obyavleniya', 'AddsController@index')->name('obyavleniya');
 
-// Route::get('/plavanie', 'SectionsPagesController@swimming')->name('plavanie');
-// Route::get('/borba', 'SectionsPagesController@wrestling')->name('borba');
-// Route::get('/legkaya-atletika', 'SectionsPagesController@legkaya_atletika')->name('legkaya-atletika');
-// Route::get('/tyazhelaya-atletika', 'SectionsPagesController@tyazhelaya_atletika')->name('tyazhelaya-atletika');
-// Route::get('/futbol', 'SectionsPagesController@football')->name('futbol');
-// Route::get('/voleybol', 'SectionsPagesController@volleyball')->name('voleybol');
-
 Route::get('/section/{id}/{slug}', 'SectionsPagesController@section')->name('section');
 
 // Backend...
