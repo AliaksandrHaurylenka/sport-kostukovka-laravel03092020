@@ -17,7 +17,7 @@
 
             <!-- Card content -->
             <div class="card-body text-center">
-              <a href="{{route($section->slug)}}" class="btn btn-light-blue btn-md text-white waves-effect waves-light">
+              <a href="{{ route('section', [$section->id, $section->slug]) }}" class="btn btn-light-blue btn-md text-white waves-effect waves-light">
                 {{$section->title}}
               </a>
             </div>
