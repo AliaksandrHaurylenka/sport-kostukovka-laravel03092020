@@ -7,6 +7,19 @@ use App\Section;
 
 class SectionsPagesController extends Controller
 {
+
+	public function section($id, $slug){
+		$section = Section::where('id', $id)->firstOrFail();
+		$photo_sports = Section::where('id', $id)->firstOrFail();
+		// $coaches = Coach::where('section_id', 1)->where('work', 'Да')->get();
+		// dd($coaches);
+
+		return view('site.sections.section', compact('section', 'photo_sports'));
+	}
+
+
+	
+
     public function swimming(){
     	
     	return parent::action_sections('Плавание', 'site.sections.swimming', 1);
@@ -40,4 +53,7 @@ class SectionsPagesController extends Controller
     	
     	return parent::action_sections('Волейбол', 'site.sections.volleyball', 6);
 	}
+	
+	
+	
 }

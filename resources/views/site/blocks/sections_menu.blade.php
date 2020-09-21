@@ -15,7 +15,7 @@
               <!-- Card -->
               <div class="card mb-4 z-depth-0">
                 <!--Card image-->
-                <div class="view overlay" onclick="window.location='{{route($section->slug)}}'">
+                <div class="view overlay" onclick="window.location='/section/{{$section->id}}/{{$section->slug}}'">
                   <img class="card-img-top"
                        src="/images/sections/{{$section->photo_section_menu}}"
                        style="max-width: 140px" alt="">
@@ -26,7 +26,8 @@
                 <div class="card-body d-none d-lg-block for-active-button">
                   <!--Text-->
                   <p class="card-text">{!!getLengthString($section->description, 50)!!}</p>
-                  <a href="{{route($section->slug)}}" class="btn btn-light-blue btn-md text-white">Подробнее</a>
+                  {{-- <a href="{{route($section->slug)}}" class="btn btn-light-blue btn-md text-white">Подробнее</a> --}}
+                  <a href="/section/{{$section->id}}/{{$section->slug}}" class="btn btn-light-blue btn-md text-white">Подробнее</a>
                 </div>
               </div>
               <!-- Card -->

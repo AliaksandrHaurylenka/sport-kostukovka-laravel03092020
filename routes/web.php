@@ -46,6 +46,8 @@ Route::get('/tyazhelaya-atletika', 'SectionsPagesController@tyazhelaya_atletika'
 Route::get('/futbol', 'SectionsPagesController@football')->name('futbol');
 Route::get('/voleybol', 'SectionsPagesController@volleyball')->name('voleybol');
 
+Route::get('/section/{id}/{slug}', 'SectionsPagesController@section')->name('section');
+
 // Backend...
 Route::get('/cabinet', function () { return redirect('/admin/home'); })->name('cabinet');
 
