@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Section;
+use App\Coach;
 
 class SectionsPagesController extends Controller
 {
@@ -11,14 +12,14 @@ class SectionsPagesController extends Controller
 	public function section($id, $slug){
 		$section = Section::where('id', $id)->firstOrFail();
 		$photo_sports = Section::where('id', $id)->firstOrFail();
-		// $coaches = Coach::where('section_id', 1)->where('work', 'Да')->get();
+		$coaches = Coach::where('section_id', $id)->where('work', 'Да')->get();
 		// dd($coaches);
 
-		return view('site.sections.section', compact('section', 'photo_sports'));
+		return view('site.sections.section', compact('section', 'photo_sports', 'coaches'));
 	}
 
 
-	
+
 
     public function swimming(){
     	

@@ -3,7 +3,7 @@
 @endsection --}}
 
 {{-- @if(isset($sport, $photo_sports, $coaches, $coaches_archive, $prides)) --}}
-@if(isset($photo_sports))
+@if(isset($photo_sports, $coaches))
 	<section class="mt-5 wow fadeIn">
 		<hr class="mb-4">
 			<div class="mb-4"><img src="/images/sections/{{$photo_sports->photo_sport}}" class="img-fluid z-depth-1-half" alt=""></div>
@@ -11,7 +11,7 @@
 	</section>
 
 
-	{{-- <section class="mt-5 wow fadeIn">
+	<section class="mt-5 wow fadeIn">
 		<h2 class="h2-responsive m-0">Тренерский состав</h2>
 		<hr class="mb-4">
 		@foreach($coaches as $coach)	
@@ -42,7 +42,7 @@
 		<!-- News jumbotron -->
 		@endforeach
 		
-	</section> --}}
+	</section>
 
 
 	{{-- <section class="my-5 wow fadeIn">
