@@ -13,9 +13,10 @@ class SectionsPagesController extends Controller
 		$section = Section::where('id', $id)->firstOrFail();
 		$photo_sports = Section::where('id', $id)->firstOrFail();
 		$coaches = Coach::where('section_id', $id)->where('work', 'Да')->get();
+		$coaches_archive = Coach::where('section_id', $id)->where('work', 'Нет')->latest('id')->get();
 		// dd($coaches);
 
-		return view('site.sections.section', compact('section', 'photo_sports', 'coaches'));
+		return view('site.sections.section', compact('section', 'photo_sports', 'coaches', 'coaches_archive'));
 	}
 
 
