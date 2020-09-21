@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Section;
 use App\Coach;
+use App\Pride;
 
 class SectionsPagesController extends Controller
 {
@@ -14,48 +15,8 @@ class SectionsPagesController extends Controller
 		$photo_sports = Section::where('id', $id)->firstOrFail();
 		$coaches = Coach::where('section_id', $id)->where('work', 'Да')->get();
 		$coaches_archive = Coach::where('section_id', $id)->where('work', 'Нет')->latest('id')->get();
-		// dd($coaches);
+		$prides = Pride::where('section_id', $id)->latest('id')->get();
 
-		return view('site.sections.section', compact('section', 'photo_sports', 'coaches', 'coaches_archive'));
+		return view('site.sections.section', compact('section', 'photo_sports', 'coaches', 'coaches_archive', 'prides'));
 	}
-
-
-
-
-    public function swimming(){
-    	
-    	return parent::action_sections('Плавание', 'site.sections.swimming', 1);
-	}
-	
-	public function wrestling(){
-    	
-    	/*$photo_sports = Section::where('title', 'Борьба')->get();
-    	
-		return view('site.sections.swimming', compact('photo_sports'));*/
-		
-		return parent::action_sections('Борьба', 'site.sections.wrestling', 2);
-	}
-	
-	public function legkaya_atletika(){
-    	
-    	return parent::action_sections('Легкая атлетика', 'site.sections.legkaya-atletika', 3);
-	}
-	
-	public function tyazhelaya_atletika(){
-    	
-    	return parent::action_sections('Тяжелая атлетика', 'site.sections.tyazhelaya-atletika', 4);
-	}
-	
-	public function football(){
-    	
-    	return parent::action_sections('Футбол', 'site.sections.football', 5);
-	}
-	
-	public function volleyball(){
-    	
-    	return parent::action_sections('Волейбол', 'site.sections.volleyball', 6);
-	}
-	
-	
-	
 }

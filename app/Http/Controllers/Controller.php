@@ -12,16 +12,5 @@ use App\Pride;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    
-    
-    public function action_sections($section, $view, $section_id){
-    	
-    	$photo_sports = Section::where('title', $section)->get();
-    	$coaches = Coach::where('section_id', $section_id)->where('work', 'Да')->get();
-    	$coaches_archive = Coach::where('section_id', $section_id)->where('work', 'Нет')->latest('id')->get();
-    	$prides = Pride::where('section_id', $section_id)->latest('id')->get();
-    	
-		return view($view, compact('photo_sports', 'coaches', 'coaches_archive', 'prides'));
-	}
+	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;		
 }

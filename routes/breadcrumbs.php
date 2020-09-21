@@ -31,29 +31,9 @@ Breadcrumbs::register('kostyukovskie-luzhniki', function (Crumbs $crumbs) {
     $crumbs->parent('main');
     $crumbs->push('Костюковские Лужники');
 });
-Breadcrumbs::register('plavanie', function (Crumbs $crumbs) {
+Breadcrumbs::register('section', function (Crumbs $crumbs, $section) {
     $crumbs->parent('main');
-    $crumbs->push('Плавание');
-});
-Breadcrumbs::register('borba', function (Crumbs $crumbs) {
-    $crumbs->parent('main');
-    $crumbs->push('Борьба');
-});
-Breadcrumbs::register('legkaya-atletika', function (Crumbs $crumbs) {
-    $crumbs->parent('main');
-    $crumbs->push('Легкая атлетика');
-});
-Breadcrumbs::register('tyazhelaya-atletika', function (Crumbs $crumbs) {
-    $crumbs->parent('main');
-    $crumbs->push('Тяжелая атлетика');
-});
-Breadcrumbs::register('futbol', function (Crumbs $crumbs) {
-    $crumbs->parent('main');
-    $crumbs->push('Футбол');
-});
-Breadcrumbs::register('voleybol', function (Crumbs $crumbs) {
-    $crumbs->parent('main');
-    $crumbs->push('Волейбол');
+    $crumbs->push($section->title);
 });
 Breadcrumbs::register('novosti', function (Crumbs $crumbs) {
     $crumbs->parent('main');

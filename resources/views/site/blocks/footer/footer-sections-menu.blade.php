@@ -5,9 +5,9 @@
   <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
   <ul class="list-unstyled">
     @if(isset($sportSections))
-      @foreach($sportSections as $menu)
+      @foreach($sportSections as $section)
         <li>
-          <a href="{{route($menu->slug)}}">{{$menu->title}}</a>
+          <a href="{{ route('section', [$section->id, $section->slug]) }}">{{$section->title}}</a>
         </li>
       @endforeach
     @endif

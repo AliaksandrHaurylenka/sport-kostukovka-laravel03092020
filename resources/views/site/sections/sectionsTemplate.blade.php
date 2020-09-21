@@ -1,9 +1,6 @@
-{{-- @section('breadcrumbs')
-  {!! Breadcrumbs::render(); !!}
-@endsection --}}
+<h1 class="h1-responsive mt-5">{{$sport}}</h1>
 
-{{-- @if(isset($sport, $photo_sports, $coaches, $coaches_archive, $prides)) --}}
-@if(isset($photo_sports, $coaches, $coaches_archive))
+@if(isset($photo_sports, $coaches, $coaches_archive, $prides))
 	<section class="mt-5 wow fadeIn">
 		<hr class="mb-4">
 			<div class="mb-4"><img src="/images/sections/{{$photo_sports->photo_sport}}" class="img-fluid z-depth-1-half" alt=""></div>
@@ -81,7 +78,7 @@
 				</div>
 				</div>
 			</div>
-			{{-- <div class="card">
+			<div class="card">
 				<div class="card-header blue lighten-3 z-depth-1" role="tab" id="heading97">
 					<h5 class="text-uppercase mb-0 py-1">
 						<a class="collapsed font-weight-bold white-text" data-toggle="collapse" href="#collapse97"
@@ -112,7 +109,7 @@
 						@endforeach
 					</div>
 				</div>
-			</div> --}}
+			</div>
 		</div>
 		<!--Accordion wrapper-->
 	</section>
