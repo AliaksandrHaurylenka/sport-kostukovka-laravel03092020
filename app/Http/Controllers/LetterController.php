@@ -39,7 +39,10 @@
 
         Mail::send(new LetterMail($data));
 
-        return redirect()->back()->with('status', 'Ваше сообщение отправлено!');
+        // return redirect()->back()->with('status', 'Ваше сообщение отправлено!');
+        flash('Ваше сообщение отправлено!')->success()->important();
+        // flash()->overlay('Ваше сообщение отправлено!', 'Уведомление');
+        return redirect()->back();       
       }
     }
   }

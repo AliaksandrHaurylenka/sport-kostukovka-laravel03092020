@@ -20,6 +20,7 @@
             <div class="col-sm-6">
               <div class="md-form">
                 <input id="captcha" class="form-control" type="text" name="captcha" required>
+                {{-- <input id="captcha" class="form-control" type="text" name="captcha"> --}}
                 <label for="captcha">Код с картинки *</label>
               </div>
             </div>
@@ -27,24 +28,28 @@
           <div class="md-form">
             <i class="fas fa-user prefix grey-text"></i>
             <input type="text" id="form-name" class="form-control" name="name" value="{{old('name')}}" required>
+            {{-- <input type="text" id="form-name" class="form-control" name="name" value="{{old('name')}}"> --}}
             <label for="form-name">Ваше имя *</label>
           </div>
           <div class="md-form">
             <i class="fas fa-envelope prefix grey-text"></i>
             <input type="email" id="form-email" class="form-control" name="email" value="{{old('email')}}" required>
+            {{-- <input type="email" id="form-email" class="form-control" name="email" value="{{old('email')}}"> --}}
             <label for="form-email">Ваш e-mail *</label>
           </div>
           <div class="md-form">
             <i class="fas fa-pencil-alt prefix grey-text"></i>
             <textarea id="form-text" class="form-control md-textarea" rows="3" name="text" required>{{old('text')}}</textarea>
+            {{-- <textarea id="form-text" class="form-control md-textarea" rows="3" name="text" >{{old('text')}}</textarea> --}}
             <label for="form-text">Сообщение *</label>
           </div>
-          @if(session('status'))
+          {{-- @if(session('status'))
             <div class="col-12 alert alert-info">
               {{session('status')}}
             </div>
-          @endif
+          @endif --}}
           @include('admin.errors')
+          @include('flash::message')
           <div class="text-center">
             <button type="submit" class="btn btn-light-blue btn-form">Отправить</button>
           </div>

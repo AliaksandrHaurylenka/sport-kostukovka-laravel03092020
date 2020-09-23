@@ -34,7 +34,7 @@ ini_set('display_startup_errors', 1);
                 @yield('breadcrumbs')
             </div>
             
-
+            {{-- @include('flash::message') --}}
             <!--Blog-->
             <div class="row">
             	<!--Main listing-->
