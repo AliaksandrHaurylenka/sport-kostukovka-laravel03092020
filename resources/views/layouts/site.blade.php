@@ -17,6 +17,13 @@ ini_set('display_startup_errors', 1);
     @include('site.blocks.address-top')
     @include('site.modal-ads')
     <header id="app">
+        <div class="flash message">
+            @include('flash::message')
+        </div>
+        <div class="flash">
+            @include('admin.errors')
+        </div>
+        
         @include('site.blocks.nav')
         
         @if(url()->full() == route('main'))
@@ -34,7 +41,8 @@ ini_set('display_startup_errors', 1);
                 @yield('breadcrumbs')
             </div>
             
-            {{-- @include('flash::message') --}}
+            
+            
             <!--Blog-->
             <div class="row">
             	<!--Main listing-->

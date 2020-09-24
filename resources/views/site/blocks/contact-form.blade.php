@@ -1,5 +1,4 @@
-<!-- Section: Contact v.1 -->
-<section class="my-5">
+<section class="my-5" id="yak1">
     <!-- Form with header -->
     <div class="card">
       <div class="card-body">
@@ -48,8 +47,6 @@
               {{session('status')}}
             </div>
           @endif --}}
-          @include('admin.errors')
-          @include('flash::message')
           <div class="text-center">
             <button type="submit" class="btn btn-light-blue btn-form">Отправить</button>
           </div>

@@ -16,7 +16,8 @@
   new WOW().init();
 </script>
 
-<script>
+{{-- Открытие страницы после перезагрузки в том месте где остановились просматривать --}}
+{{-- <script>
   let cords = ['scrollX','scrollY'],
       submits = document.querySelectorAll('.btn-form');
   // console.log(submits);
@@ -29,4 +30,20 @@
   //Удаляем сразу ключи, чтобы при клике на другие ссылки страница открывалась сверху
   localStorage.removeItem('scrollY');
   localStorage.removeItem('scrollX'); 
-</script>
+</script> --}}
+
+
+<script type="text/javascript">
+
+  // Плавная прокрутка к сообщению при выводе ошибок
+  $(document).ready(function(){
+     $(".form").on("click","a", function (event) {
+         event.preventDefault();
+         var id  = $(this).attr('href'),
+             top = $(id).offset().top;
+         $('body, html').animate({scrollTop: top}, 1500);
+     });
+
+     $(".flash.message").children('.alert').css({"padding-left": "21%", "padding-right": "22%"});
+ });
+ </script>

@@ -17,7 +17,6 @@
 			      <input type="email" name="email" id="defaultFormEmailEx" class="form-control">
 
 			      <div class="text-center mt-4">
-			        <!--<button class="btn btn-info btn-md" type="submit">Подписаться</button>-->
 			        <button class="btn btn-grey btn-block mb-4 mt-4" type="submit">Подписаться</button>
 			      </div>
 			    </form>

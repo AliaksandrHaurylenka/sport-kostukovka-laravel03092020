@@ -27,7 +27,8 @@ class SubscribesController extends Controller
 
         Mail::to($subs)->send(new SubscribesEmail($subs));
 
-        return redirect()->back()->with('status', 'Проверьте пожалуйста свою почту!');
+        flash('Для подтверждения рассылок, пожалуйста, перейдите в свою почту!')->success()->important();
+        return redirect()->back();
     }
 
 

@@ -1,4 +1,4 @@
-<div class="col-md-3 col-lg-4 col-xl-3 mx-auto my-4">
+<div class="col-md-3 col-lg-4 col-xl-3 mx-auto my-4" id="yak1">
 	<!-- Content -->
 	<h6 class="text-uppercase font-weight-bold">Напишите нам</h6>
 	<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
@@ -11,31 +11,28 @@
 					<a href="" id="refresh"><img src="{{ Captcha::src('flat') }}" alt="captcha" class="captcha-img btn-form" data-refresh-config="default"></a>
 			</div>
 			<div class="col">
-					<input class="form-control" type="text" placeholder="Код*" name="captcha" required>
+					{{-- <input class="form-control" type="text" placeholder="Код*" name="captcha" required> --}}
+					<input class="form-control" type="text" placeholder="Код*" name="captcha">
 			</div>
 		</div>
 	  <!-- Default input -->
 	  <div class="form-group">
-	    <input type="text" class="form-control" placeholder="Имя*" name="name" value="{{old('name')}}" required>
+	    {{-- <input type="text" class="form-control" placeholder="Имя*" name="name" value="{{old('name')}}" required> --}}
+	    <input type="text" class="form-control" placeholder="Имя*" name="name" value="{{old('name')}}">
 	  </div>
 	  
 	  <!-- Default input -->
 	  <div class="form-group">
-	    <input type="email" class="form-control" placeholder="E-mail*" name="email" value="{{old('email')}}" required>
+	    {{-- <input type="email" class="form-control" placeholder="E-mail*" name="email" value="{{old('email')}}" required> --}}
+	    <input type="email" class="form-control" placeholder="E-mail*" name="email" value="{{old('email')}}">
 	  </div>
 	  
 	  	<!--Material textarea-->
 		<div class="form-group md-form md-outline">
-		  <textarea id="form75" class="form-control white" rows="3" name="text" required>{{old('text')}}</textarea>
+		  {{-- <textarea id="form75" class="form-control white" rows="3" name="text" required>{{old('text')}}</textarea> --}}
+		  <textarea id="form75" class="form-control white" rows="3" name="text">{{old('text')}}</textarea>
 		  <label for="form75">Ваше сообщение*</label>
 		</div>
-			
-		@if(session('status'))
-			<div class="col-12 alert alert-info">
-				{{session('status')}}
-			</div>
-		@endif
-		@include('admin.errors')
 		
 		<!-- Sign in button -->
 		<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 btn-form" type="submit">Отправить</button>
