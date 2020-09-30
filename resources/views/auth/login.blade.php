@@ -6,10 +6,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">{{ ucfirst(config('app.name')) }} @lang('quickadmin.qa_login')</div>
                 <div class="panel-body">
-                    
+
                     @if (count($errors) > 0)
                         <div class="alert alert-danger">
-                            <strong>@lang('quickadmin.qa_whoops')</strong> @lang('quickadmin.qa_there_were_problems_with_input'):
+                            <strong>@lang('quickadmin.qa_whoops')</strong> @lang('quickadmin.qa_there_were_problems_with_input')
+                            :
                             <br><br>
                             <ul>
                                 @foreach ($errors->all() as $error)
@@ -34,7 +35,9 @@
                                 <input type="email"
                                        class="form-control"
                                        name="email"
-                                       value="{{ old('email') }}">
+                                       value="{{ old('email') }}"
+                                       autofocus
+                                       required>
                             </div>
                         </div>
 
