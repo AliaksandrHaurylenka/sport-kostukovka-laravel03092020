@@ -418,6 +418,22 @@
       return ucfirst($date);
     }
 
+    /**
+     * Вывод даты в нужном формате
+     * @return mixed
+     */
+    public function getMonth($month)
+    {
+      $date = Date::createFromFormat('d/m/Y', $this->date)->format('m');
+      return ucfirst($date);
+    }
+
+    public function getYear($month)
+    {
+      $date = Date::createFromFormat('d/m/Y', $this->date)->format('Y');
+      return ucfirst($date);
+    }
+
 
     /**
      * Вывод изображений добавленных в пост

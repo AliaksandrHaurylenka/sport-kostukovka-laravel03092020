@@ -154,17 +154,18 @@
       return view('site.posts-list', compact('posts', 'section', 'tag_title', 'user_name', 'year'));
     }
 
-    /**
-     * Вывод архива новостей
-     * @param $slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
+      /**
+       * Вывод архива новостей
+       * @param $month
+       * @param $year
+       * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+       */
     public function archiveMonthYear($month, $year)
     {
-      $archive = Post::whereMonth('date', $month)->whereYear('date', $year);
+      $archive = Post::whereMonth('date', $month)->whereYear('date', $year)->get();
       //$month = Post::whereMonth('date', $month);
       //$year = Post::whereYear('date', $year);
-      //dd($archive);
+      dd($archive);
       $y = $year;
       //$y = $month.$year;
       $cat = false;

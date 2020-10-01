@@ -83,7 +83,11 @@
               <!--Grid column-->
               <div class="col-xl-5 col-md-6 text-sm-center text-md-left">
                 <p class="font-small grey-text">
-                  <em>{{$post->getDate()}}</em>
+                  <em>{{$post->getDate()}}</em><br>
+                  <a href="{{ route('archive.month.year.show', [$post->getMonth($post->date), $post->getYear($post->date)]) }}"
+                     class="orange-lighter-hover">
+                    <em>Месяц, Год</em>
+                  </a>
                 </p>
               </div>
               <!--Grid column-->
