@@ -29,6 +29,7 @@
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Post.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/site/posts-list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/site/posts-list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/breadcrumbs.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/breadcrumbs.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -205,7 +206,8 @@
       <workItem from="1601453062057" duration="406000" />
       <workItem from="1601453484329" duration="2111000" />
       <workItem from="1601460910113" duration="9500000" />
-      <workItem from="1601527036136" duration="6353000" />
+      <workItem from="1601527036136" duration="19183000" />
+      <workItem from="1601613920896" duration="2295000" />
     </task>
     <servers />
   </component>
@@ -233,6 +235,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="175" width="1092" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601448827759" />
+    <state x="667" y="243" key="NewPhpClassDialog" timestamp="1601538775235">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="667" y="243" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601538775235" />
     <state x="869" y="160" key="SettingsEditor" timestamp="1601461244004">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -241,13 +247,13 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="681" y="261" width="540" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1601464556592" />
-    <state x="576" y="170" width="874" height="706" key="find.popup" timestamp="1601528408857">
+    <state x="576" y="170" width="874" height="706" key="find.popup" timestamp="1601547570982">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="576" y="170" width="874" height="706" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601528408857" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1601527749889">
+    <state x="576" y="170" width="874" height="706" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601547570982" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1601547564772">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601527749889" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601547564772" />
   </component>
 </project>

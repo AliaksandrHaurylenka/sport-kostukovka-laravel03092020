@@ -16,7 +16,7 @@ Route::get('/no-category', 'PostsController@no_category')->name('no-category.sho
 
 Route::get('/archive/{year}', 'PostsController@archive')->name('year');
 //Route::get('/archive/{month-year}', 'PostsController@archiveMonthYear')->name('archive.month.year.show');
-Route::get('/archive/{month}/{year}', 'PostsController@archiveMonthYear')->name('archive.month.year.show');
+Route::get('/archive_month_year/{month}/{year}', 'PostsController@archiveMonthYear')->name('archive.month.year.show');
 
 Route::get('/user_posts/{id}/{name}', 'PostsController@user_posts')->name('user_posts.show');
 

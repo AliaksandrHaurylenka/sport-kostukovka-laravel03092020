@@ -414,24 +414,23 @@
      */
     public function getDate()
     {
-      $date = Date::createFromFormat('d/m/Y', $this->date)->format('F d, Y');
-      return ucfirst($date);
+        return Date::createFromFormat('d/m/Y', $this->date)->format('F d, Y');
     }
 
-    /**
-     * Вывод даты в нужном формате
-     * @return mixed
-     */
-    public function getMonth($month)
+
+    public function getMonth()
     {
-      $date = Date::createFromFormat('d/m/Y', $this->date)->format('m');
-      return ucfirst($date);
+        return Date::createFromFormat('d/m/Y', $this->date)->format('m');
     }
 
-    public function getYear($month)
+    public static function getMonthName($month)
     {
-      $date = Date::createFromFormat('d/m/Y', $this->date)->format('Y');
-      return ucfirst($date);
+        return Date::createFromFormat('m', $month)->format('F');
+    }
+
+    public function getYear()
+    {
+        return Date::createFromFormat('d/m/Y', $this->date)->format('Y');
     }
 
 
@@ -508,12 +507,10 @@
      */
     public static function archivesYears()
     {
-      $archives = static::selectRaw('year(date) as year, count(*) as number')
-        ->groupBy('year')
-        ->latest('year')
-        ->get();
-
-      return $archives;
+        return static::selectRaw('year(date) as year, count(*) as number')
+          ->groupBy('year')
+          ->latest('year')
+          ->get();
     }
 
     /**
@@ -524,17 +521,15 @@
     public static function archivesMonthYear()
       //public static function archivesMonthYear($year)
     {
-      $archives = static::selectRaw('year(date) year, month(date) as month, monthname(date) as monthRU, count(*) as number')
+        /*$archives = static::whereYear('date', $year)
+          ->selectRaw('year(date) year, month(date) as month, monthname(date) as monthRU, count(*) as number')
+            ->groupBy('year', 'month', 'monthRU')
+            ->get(); */
+
+      return static::selectRaw('year(date) year, month(date) as month, monthname(date) as monthRU, count(*) as number')
         ->groupBy('year', 'month', 'monthRU')
         //->orderByRaw('min(date)')
         ->get();
-
-      /*$archives = static::whereYear('date', $year)
-        ->selectRaw('year(date) year, month(date) as month, monthname(date) as monthRU, count(*) as number')
-          ->groupBy('year', 'month', 'monthRU')
-          ->get(); */
-
-      return $archives;
     }
 
     public function getMonthRUAttribute($month)

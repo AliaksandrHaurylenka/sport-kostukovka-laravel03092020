@@ -59,6 +59,10 @@ Breadcrumbs::register('no-category.show', function (Crumbs $crumbs) {
     $crumbs->parent('novosti');
     $crumbs->push('Без категории', route('no-category.show'));
 });
+Breadcrumbs::register('archive_month_year', function (Crumbs $crumbs, $month, $year) {
+    $crumbs->parent('novosti');
+    $crumbs->push($month.' '.$year);
+});
 Breadcrumbs::register('post.show', function (Crumbs $crumbs, $section, $post) {
     if($section){
         $crumbs->parent('category.show', $section);
