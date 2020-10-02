@@ -26,7 +26,7 @@
                 <!-- Excerpt -->
                 <div class="col-sm-7 col-md-12 col-lg-6">
                     <h6 class="mt-1 mt-sm-0 mt-md-1 mb-md-0 mb-lg-2 font-small">
-                        <a>
+                        <a href="{{route('post.show', $post->slug)}}" class="text-dark">
                             <strong>{{$post->title}}</strong>
                         </a>
                     </h6>
