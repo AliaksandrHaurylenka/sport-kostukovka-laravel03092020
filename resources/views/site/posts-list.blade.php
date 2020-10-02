@@ -92,7 +92,6 @@
                             <div class="col-xl-5 col-md-6 text-sm-center text-md-left">
                                 <p class="font-small grey-text">
                                     <em>{{$post->getDate()}}</em><br>
-{{--                                    @if(route('archive.month.year.show', [$post->getMonth(), $post->getYear()]))--}}
                                     @if(!strpos(url()->current(), 'archive_month_year'))
                                         <u>
                                             <a href="{{ route('archive.month.year.show', [$post->getMonth(), $post->getYear()]) }}"
