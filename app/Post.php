@@ -513,18 +513,19 @@
           ->get();
     }
 
-    /**
-     *
-     *
-     * @return
-     */
+      /**
+       *
+       *
+       * @return
+       */
     public static function archivesMonthYear()
-      //public static function archivesMonthYear($year)
+//      public static function archivesMonthYear($year)
     {
         /*$archives = static::whereYear('date', $year)
           ->selectRaw('year(date) year, month(date) as month, monthname(date) as monthRU, count(*) as number')
             ->groupBy('year', 'month', 'monthRU')
-            ->get(); */
+            ->get();
+        return $archives;*/
 
       return static::selectRaw('year(date) year, month(date) as month, monthname(date) as monthRU, count(*) as number')
         ->groupBy('year', 'month', 'monthRU')

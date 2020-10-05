@@ -10,7 +10,6 @@ use App\Menu;
 use App\Post;
 use App\Section;
 use App\Subscribe;
-use App\Category;
 use App\Banner;
 use Illuminate\Support\Facades\Schema;
 use Laravel\Dusk\DuskServiceProvider;
@@ -50,13 +49,15 @@ class AppServiceProvider extends ServiceProvider
             $view->with('menus', Menu::where('drop', 0)->get());//строка используется в переменной цикла определенного блока
             $view->with('menus_drop', Menu::where('drop', 1)->get());
             $view->with('sportSections', Section::all());
-            // $view->with('noCategory', Post::where('section_id', 0)->get());
             $view->with('noCategory', Post::where('section_id', 0)->count());
         });
-        
+
+
         view()->composer('site.blocks.sidebar.archive', function ($view){
+//            $year = new Post;
             $view->with('yearArchive', Post::archivesYears());
             //$view->with('monthArchive', Post::archivesMonth());
+//            $view->with('monthYearArchive', Post::archivesMonthYear($year->getYear()));
             $view->with('monthYearArchive', Post::archivesMonthYear());
             //$view->with('monthYearArchive', Post::archivesMonthYear('1991'));
         });
