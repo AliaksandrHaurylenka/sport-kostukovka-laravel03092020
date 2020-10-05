@@ -59,7 +59,7 @@ class AppServiceProvider extends ServiceProvider
             //$view->with('monthArchive', Post::archivesMonth());
 //            $view->with('monthYearArchive', Post::archivesMonthYear($year->getYear()));
             $view->with('monthYearArchive', Post::archivesMonthYear());
-            //$view->with('monthYearArchive', Post::archivesMonthYear('1991'));
+//            $view->with('monthYearArchive2018', Post::archivesMonthYear('2018'));
         });
 
         view()->composer('site.blocks.sidebar.banners', function ($view){

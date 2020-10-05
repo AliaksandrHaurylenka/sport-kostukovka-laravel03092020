@@ -23,7 +23,7 @@
             </ul>
 
 
-            <div class="accordion" id="accordionExample275">
+            {{--<div class="accordion" id="accordionExample275">
                 @foreach ($yearArchive as $key => $item)
                     <div class="card z-depth-0 bordered">
                         <div class="card-header d-flex justify-content-between align-items-center" id="heading{{$key}}">
@@ -38,7 +38,7 @@
                              data-parent="#accordionExample275">
                             <div class="card-body">
                                 <ul class="list-group my-4">
-{{--                                    @if($item = '1978')--}}
+                                    @if($item = ['1978'])
                                         @forelse ($monthYearArchive as $item)
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 <a href="/archive_month_year/{{$item->month}}/{{$item->year}}"
@@ -50,13 +50,13 @@
                                         @empty
                                             <li>Здесь пока ничего нет.</li>
                                         @endforelse
-{{--                                    @endif--}}
+                                    @endif
                                 </ul>
                             </div>
                         </div>
                     </div>
                 @endforeach
-            </div>
+            </div>--}}
 
 
         </div>
