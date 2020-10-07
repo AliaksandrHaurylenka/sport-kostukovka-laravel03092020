@@ -63,6 +63,17 @@ Breadcrumbs::register('archive_month_year', function (Crumbs $crumbs, $month, $y
     $crumbs->parent('novosti');
     $crumbs->push($month.' '.$year);
 });
+//Breadcrumbs::register('post.show', function (Crumbs $crumbs, $section, $post) {
+//    if($section){
+//        $crumbs->parent('category.show', $section);
+//        $crumbs->push($post->title);
+//    }
+//    else {
+//        $crumbs->parent('no-category.show');
+//        $crumbs->push($post->title);
+//    }
+//});
+
 Breadcrumbs::register('post.show', function (Crumbs $crumbs, $section, $post) {
     if($section){
         $crumbs->parent('category.show', $section);
@@ -71,5 +82,5 @@ Breadcrumbs::register('post.show', function (Crumbs $crumbs, $section, $post) {
     else {
         $crumbs->parent('no-category.show');
         $crumbs->push($post->title);
-    }  
+    }
 });

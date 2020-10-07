@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-//use App\Category;
 use App\Section;
 use App\Notifications\NewEvent;
 use App\Post;
 use App\Tag;
 use App\User;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 
 class PostsController extends Controller
@@ -30,16 +31,25 @@ class PostsController extends Controller
     /**
      * Вывод одного поста
      * @param $slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
-    public function post($slug)
+    /*public function post($slug)
     {
         //dd(get_class_methods('Auth'));
 //        dd($slug);
         $post = Post::where('status', Post::IS_PUBLIC)->where('slug', $slug)->firstOrFail();
+//        dd($post);
         event('postHasViewed', $post);//для подсчета количества просмотров постов. Провайдер EventServiceProvider.php
 //         dd($post->comments);
 //        dd($post->id);
+        return view('site.post', compact('post'));
+    }*/
+
+    public function post(Post $post)
+    {
+        dd($post);
+        $post->where('status', Post::IS_PUBLIC);
+        event('postHasViewed', $post);//для подсчета количества просмотров постов. Провайдер EventServiceProvider.php
         return view('site.post', compact('post'));
     }
 
@@ -47,7 +57,7 @@ class PostsController extends Controller
     /**
      * Вывод всех статей категории
      * @param $slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function category($slug)
     {
@@ -66,7 +76,7 @@ class PostsController extends Controller
 
     /**
      * Вывод всех статей без категории
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function no_category()
     {
@@ -89,7 +99,7 @@ class PostsController extends Controller
     /**
      * Вывод меток
      * @param $slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function tag($slug)
     {
@@ -113,7 +123,7 @@ class PostsController extends Controller
      * Вывод пользователя добавившего пост
      * @param $id
      * @param $name
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function user_posts($id, $name)
     {
@@ -136,7 +146,7 @@ class PostsController extends Controller
      * Вывод архива новостей
      * @param $month
      * @param $year
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function archive($year)
     {
@@ -159,7 +169,7 @@ class PostsController extends Controller
      * Вывод архива новостей по месяцу года
      * @param $month
      * @param $year
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function archiveMonthYear($month, $year)
     {
