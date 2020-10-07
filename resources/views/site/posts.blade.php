@@ -27,8 +27,8 @@
                         <!--Card image-->
                         <div class="view overlay">
                             <img src="{{$post->getImage()}}" class="card-img-top" alt="">
-{{--                            <a href="{{route('post.show', $post->slug)}}">--}}
-                            <a href="{{route('post.show', $post)}}">
+                            <a href="{{route('post.show', $post->slug)}}">
+{{--                            <a href="{{route('post.show', $post)}}">--}}
                                 <div class="mask rgba-white-slight"></div>
                             </a>
                         </div>

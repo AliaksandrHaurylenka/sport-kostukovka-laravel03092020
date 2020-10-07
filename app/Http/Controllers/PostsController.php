@@ -33,7 +33,7 @@ class PostsController extends Controller
      * @param $slug
      * @return Factory|View
      */
-    /*public function post($slug)
+    public function post($slug)
     {
         //dd(get_class_methods('Auth'));
 //        dd($slug);
@@ -43,15 +43,15 @@ class PostsController extends Controller
 //         dd($post->comments);
 //        dd($post->id);
         return view('site.post', compact('post'));
-    }*/
+    }
 
-    public function post(Post $post)
+    /*public function post(Post $post)
     {
         dd($post);
         $post->where('status', Post::IS_PUBLIC);
         event('postHasViewed', $post);//для подсчета количества просмотров постов. Провайдер EventServiceProvider.php
         return view('site.post', compact('post'));
-    }
+    }*/
 
 
     /**
